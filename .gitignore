@@ -60,6 +60,5 @@ dependency-reduced-pom.xml
 
 # 개인적 세팅
 Servers/*
-src/*
+/META-INF/
 build/*
-JSPPrj/*
