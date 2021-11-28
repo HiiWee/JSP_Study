@@ -60,5 +60,5 @@ dependency-reduced-pom.xml
 
 # 개인적 세팅
 Servers/*
-src/main/webapp/META-INF/*
+src/*
 build/*
