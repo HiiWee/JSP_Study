@@ -13,7 +13,6 @@ hs_err_pid*
 
 # netbeans
 nbproject/private/
-build/
 nbbuild/
 
 # the dist file could make some problems
@@ -61,4 +60,5 @@ dependency-reduced-pom.xml
 
 # 개인적 세팅
 Servers/*
-/META-INF/*
+src/main/webapp/META-INF/*
+build/*
