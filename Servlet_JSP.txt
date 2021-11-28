@@ -1,0 +1,125 @@
+< 웹 프로그래밍 개요 >
+servlet > JSP -> JSP MVC -> Spring MVC
+
+* 클라이언트(요청자) 프로그램 <> 서버 프로그램(제공자)의 동기화가 되어야 CS(Client/Server) 프로그램을 구현할 수 있다.
+* 클라이언트를 변경하려면 모든걸 전부 업데이트 해야했음 (설치와 재설치) > 이런 과정에서 다른 프로그램에 영향을 줌 
+ 	> 설치 재설치에 대한 부담 커짐 > 데이터 전송시 소켓, RPC 등을 이용 > 데이터 전송 구현의 어려움 > 웹(HTTP)이라는걸 이용하기로 함
+
+* 웹 프로그램은 서버 클라이언트 프로그램이 아니라 웹 프로그램에 서버 클라이언트를 얹을 수 있다.
+* 정적인 페이지를 전달하는 웹 서버의 환경을 바꿈 > 동적으로 페이지를 (디비연동해서) 만들 수 있는 환경 추가 > 웹 서버(서버 프로그램이 간단하게 얹어질수있는 환경 만듬)
+  > 웹 클라이언트(사용자 요청, 서버 전달 목록을 볼 수 있는걸 브라우저를 이용함)
+
+* Page > get request > web server 
+  Page < Response    < web server
+* 위의 구조에서 page가 문서를 요청 > 서버에서 동적으로 만들어지고 사용자 목록을 만들어줌 > page에서 특별하게 클라이언트 프로그램을 만들 필요없음 왜? 문서로 전달되고 그것을 브라우저를 이용하면 되니까 > 결국 클라이언트 프로그램을 재설치 할 필요가 없어짐
+
+>> 이런 방식으로 서버 프로그램과 클라이언트 프로그램이 나뉘어지며 웹개발을 이용한 서버 프로그램을 만들게됨 과거에는 CS 프로그램이라 말했지만
+웹으로 넘어오며 클라이언트가 사라짐 >> 클라이언트가 frontend 서버가 backend가 됨
+
+< 웹 서버 프로그램과 servlet >
+* 과거 
+페이지 요청 서버에 전달 > 서버에선 만들어진 문서를 반환 > 하지만 회원이라는 목록이 미리 만들어지긴 불가능함 > 따라서 동적으로 목록을 만들기 위한 코드(Server App)가 만들어져 있음 > 코드를 찾았으면 코드를 실행해 디비에서 목록을 만들고 반환함 > 코드를 실행할 수 있는 환경이 필요함 
+									[실행환경(Web Server) + 코드 실행환경(WAS(Web Application Server))]
+
+* 왜 웹 서버 응용 프로그램을 Servlet이라 명칭할까?
+페이지에서 사용자 요청 내용(리스트, 가입, 수정, 삭제 등등) > 서버 어플리케이션은 사용자가 어떤 것을 요청하냐에 따라 파편화된 녀석들이 실행되고 프로그램이 끝나버림
+> 조각나버린 서버 어플리케이션 SERVer application LET (SERVLET)
+
+
+< WAS(톰캣) 설치하기 #1 >
+JAVA_HOME 에 JDK 경로 패스 지정안하거나
+다른 프로그램이 실행하며 톰캣이 이미 사용중이면
+위 두가지를 어기면 톰캣 bin 폴더에 startup.bat 파일 실행안됨(계속 안떠있음 화면이)
+>> 제대로 설정 하면 > localhost:8080브라우저 창에 검색하면 고양이 보이면 성공~~!
+
+< WAS(톰캣) 설치하기 #2 >
+* 톰캣 > WAS (Web Application Server)
+      > WAS + 자바 어플리케이션을 개발할 때 사용하는 웹 서비스 기능이 포함됨 >> 웹 서버라 볼 수 도있음 (웹문서를 제공해주는 서비스)
+
+* 톰캣을 웹문서를 제공해주는 방식으로 사용하기!
+C:\tools\apache-tomcat-9.0.55\webapps\ROOT 에 text파일 아무거나 넣기 (내용추가해서)
+> http://자신의컴퓨터아이피:8080/textfile.txt >> 기본은 index.jsp파일임 (방화벽 열고 포트포워딩 완료하면 원격접속 가능)
+
+< WAS(톰캣) 설치하기 #3 - Context 사이트 추가하기 >
+-context 사이트란
+* 각 폴더들을 하나로 만들기 위해 폴더를 나눠 여러 사람이 분업해서 만들기 위해 이용됨
+* root/inext.html, 각각의 폴더들 >> 여기서 각각의 폴더들의 볼륨감이 커지면 따로 떼어내서 그 팀에 맡겨놓음 (완전히 별개사이트같이) 다만 서비스 문맥은 유지함
+* 서비스 문맥은 유지하되 만드는 디렉토리나 서비스는 별개로 함 (Context 또는 가상경로, 가상사이트)
+* 물리적으로는 두 개의 사이트지만 문맥상 합쳐서 root사이트의 디렉토리로 사용되는 하나의 사이트로 보임
+
+-context 사이트를 만드는 방법
+아파치 / conf / server.xml 내에
+<Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true"> 구문 아래에 적음
+<Context path="이름" docBase="전체경로" privileged="true"/> 이걸 적는다.
+위 구문의 해석 : 현재 호스트가 있는데 로컬호스트로 서비스가 진행된다. it란 폴더가 없지만 
+위 디렉토리에 있는 문서(전체경로)를 it라는 가상디렉토리와 연결해 서비스가 될 수있게 해라
+
+< 처음으로 서블릿 프로그램 만들기 >
+* 자바 서버 어플리케이션 수많은 조각중 요구되는 것만 실행됨 (조각나있음)
+* public void service 함수를 main 함수로 생각!!
+
+< 서블릿 객체 생성과 실행 방법 >
+* 톰캣에 의해서 서블릿 코드 실행되도록 코드 배치와 요청
+	- 아파치 폴더의 ROOT/WEB-INF/classed/여기에 서블릿 코드 둠(패키지가 있으면 패키지 깊이대로 경로 가져와야함)
+	- 클라이언트에서 이 클래스파일들을 요청할수가 없음 왜? web-inf폴더내 자원들은 서버쪽에서만 사용할 수 있음 (비공개영역이라 볼 수 있음)
+
+* 서블릿이 실행되는 시점과 방식
+	- 사용자가 요청할때 사용되는 이름을 classes내 클래스파일과 매핑해 해당코드를 실행하고 결과를 돌려주는 방식
+	- 사용자가 원하는 이름을 지정할 수 있음(톰캣내에서) 실제 Nana가 이름이지만 URL(이름)을 매핑지정하면 해당 이름(URL)으로 호출 가능(/hello <예시)
+	- 매핑은 ROOT/WEB-INF/web.xml파일에 설정함
+	- 매핑 예시
+	  <!-- 이곳에 mapping 정보 넣는다. -->
+	<servlet>
+		<servlet-name>na</servlet-name>   <!--실행할 서블릿 코드-->
+		<servlet-class>Nana</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>na</servlet-name>
+		<url-pattern>/hello</url-pattern> <!--혹시 /hello라는 url을 보면 위의 Nana서블릿 클래스를 실행해라 : 사용자에게 제공하는 URL-->
+	</servlet-mapping>
+	
+	-매핑 설정 완료하면 아파치 툼캣 다시 실행! 왜? web.xml변경되었으므로
+	-localhost:8080/hello로 접속하면 요청받은 웹서버는 파일을 찾아보고 없으면 WAS에게 넘기고 WAS가 자신의 매핑정보를 뒤지고 hello를 찾아내어 서블릿 코드 실행
+	-하지만 System.out.println("");은 서버쪽 콘솔에 출력함 (startup.bat)파일 열고 실행하면 hello servlet출력됨
+	-클라이언트(웹)에 출력할 수 있는 도구는 HttpServletResponse response 객체가 된다.
+
+<Servlet 문자열 출력>
+* 자바 웹 프로그래밍이란
+	- 자바 
+  	- 웹(console, window가 들어갈수도 있음 web이란 > 입출력이 웹으로 바뀌고(UI역할) 웹이라는 것이 서버에서 클라이언트로 원격으로 데이터를 전달되는 형태 또는 클라이언트로부터 원격으로 입력을 받을 수 있음) 
+						> 기존 형태와는 다르게 입력과 출력의 내용이 다르기때문에 먼저 이해하는게 필요함
+	
+	- 프로그래밍
+
+* service 함수는 HttpServletRequest request, HttpServletResponse response가 있다. request는 클라이언트 > 서버로 요청(입력도구)을 보내는것이고, response는 서버 > 클라이언트로 출력을 담당(출력도구)한다.
+* 출력과 입력의 기본은 Stream이다.  > OutputStream os = response.getOutputStream(); 하지만!
+* 바이너리, 바이트 값으로 출력할 것이 아니고 문자열 출력이므로 좀 더 편하게 쓸 수 있게하는 PrintStream out = new PrintStream(os, true); 
+										>true값은 네트워크로 출력되는 스트림은 글자하나 쓰고 보내는게아니라 버퍼에 좀 쌓여야(8kb)보내므로
+										기다리는걸 방지하고자 기다리지 말라는 옵션(flush)
+* out.println("Hello Servlet!!"); 하면 원격에 있는 클라리언트(웹)로 출력함
+* 그런데!!! 일반적으로 문자열 출력시는 PrintStream이 아니라 PrintWriter out = response.getWriter();를 이용 > 왜? 자바 IO에서는 Stream, Writer계열이 있다.  > 다국어 일 경우 Writer를 사용~! 우린 한국어니까 Writer 이용!!
+
+* 이렇게 일일이 코드를 수정하고(텍스트파일로) > 컴파일 다시하고(cmd) > WEB-INF내 classes로 클래스파일 옮기고 > 서버 재실행하고 > 브라우져에 요청함.
+	>> 복잡하쥬? 이래서 이클립스 쓰는겁니다~!
+* 이클립스는 (코드수정 컴파일 배포 톰캣서버재시작 브라우저로 요청) 단계를 Ctrl F11로 끝냄!!!
+* 이클립스가 컴파일, 문서관리, 실행까지 담당해줌 >> 이클립스도 이런것들을 관리하기 위한(실행, 편집, 배포) 또다른 파일 필요함!! >> 프로젝트 파일 Dynamic Web project
+	>> WAS는 톰캣만 있는게 아니라서 실행환경 설정 해줘야함 Target runtime
+
+< 이클립스를 이용한 서블릿 프로그래밍 >
+* JSP project의 홈 디렉토리는 src/main/webapp이다 원래는 WebContent라는 이름이었으나 변경됨
+* JSP project의 Java Resource는 src/main/java로 이름이 변경됨
+
+* 이클립스에서 CTRL F11을 누르면 > 문서가 톰캣에게 디렉토리가 옮겨지고 톰캣이 다시 실행되고 이클립스에 브라우저를 띄우고 index.html열림(톰캣에 배포된 디렉토리에 있는 index.html이 열림, 이클립스 파일이 직접열리지 않음)
+* 외부 브라우저로 열고 싶으면 window - web browser에서 선택하면 됨
+* 문서를 열면 주소가 http://localhost:8080/JSPPrj/index.html이다 여기서 JSPPrj는 context명이다 기본 루트 프로젝트는 context명을 갖는게 좋지 않음
+	>> 따라서 프로젝트명을 root로 변경 (properties > web project settings > 이름을 /로 변경
+	>> 이후 톰캣 정지 > 기존 JSPPrj Context명으로 연동된것 지우고 다시 실행 > 이후 브라우져 보면 http://localhost:8080/index.html 이렇게 컨텍스트명 사라짐
+
+* html파일은 이렇게 열리는 구나!! 그럼 자바 파일은??????????
+	자바파일은 src/main/java에 생성한다
+	파일 작성후 실행을 하려면 클래스 파일을 web.xml에 URL을 매핑해야함 (< 서블릿 객체 생성과 실행 방법 > 참조)
+	web-inf내부에 파일이 존재하지 않으므로 기존 톰캣에 있던걸 복붙함!!
+
+<Annotation을 이용한 URL매핑 >
