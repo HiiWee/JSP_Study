@@ -61,4 +61,4 @@ dependency-reduced-pom.xml
 
 # 개인적 세팅
 Servers/*
-META-INF/MANIFEST.MF
+/META-INF/*
