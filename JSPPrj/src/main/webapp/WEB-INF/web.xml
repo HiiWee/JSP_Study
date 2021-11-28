@@ -20,18 +20,29 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
   version="4.0"
-  metadata-complete="true">
+  metadata-complete="false">
   <!-- 이곳에 mapping 정보 넣는다. -->
-	<servlet>
-		<servlet-name>na</servlet-name>   <!--실행할 서블릿 코드-->
+<!-- 	<servlet>
+		<servlet-name>na</servlet-name>   실행할 서블릿 코드
 		<servlet-class>com.hoseok.web.Nana</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>na</servlet-name>
-		<url-pattern>/hello</url-pattern> <!--혹시 hello라는 url을 보면 위의 Nana서블릿 클래스를 실행해라 : 사용자에게 제공하는 URL-->
+		<url-pattern>/hello</url-pattern> 혹시 hello라는 url을 보면 위의 Nana서블릿 클래스를 실행해라 : 사용자에게 제공하는 URL
 	</servlet-mapping>
-
+ -->
+ 
+ <!--  <filter>
+  	<filter-name>characterEncodingFilter</filter-name>	실행할 필터 클래스 이름 
+	<filter-class>com.hoseok.web.filter.CharacterEncodingFilter</filter-class>	실제 필터 경로
+  </filter>
+  <filter-mapping>
+  	<filter-name>characterEncodingFilter</filter-name>	실행할 필터이름 
+  	<url-pattern>/*</url-pattern>		/*의미는 모든 URL에 대해서 필터 클래스를 실행하라
+  </filter-mapping> -->
+  
+  
   <display-name>Welcome to Tomcat</display-name>
   <description>
      Welcome to Tomcat

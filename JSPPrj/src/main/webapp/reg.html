@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<!-- 사용자 입력을 위한 태그 -->
+		<form action="notice-reg" method="post">
+			<!-- action에는 Servlet mapping 주소가 들어감 -->
+			<div>
+				<label>제목:</label><input name="title" type="text" />
+				<!--name="title" 이 키워드가 되고 입력된 값을 전달함 -->
+			</div>
+			<div>
+				<label>내용:</label>
+				<!-- 여러 라인 쓸 수 있는 textarea태그 -->
+				<textarea name="content"></textarea>
+			</div>
+			<div>
+				<!-- 요청을 전달하는 버튼 -->
+				<input type="submit" value="등록" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>
