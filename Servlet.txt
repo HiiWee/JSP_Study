@@ -665,3 +665,5 @@ A negative value means that the cookie is not stored persistently and will be de
 	response.sendRedirect("calculaotor");
 
 * setPath("/calculator") >> 절대로 다른 URL에는 쿠키가 전달될 필요가 없기 때문에 범위를 축소시켜서 쓰는 서비스에게만 전달
+
+서블릿 일단 완료
