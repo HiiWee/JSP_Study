@@ -358,3 +358,24 @@ http://.../notice/detail = NoticeDetailController.java
   list.jsp의 a태그의 href옵션은 detail.jsp?id=<%=rs.getInt("id")%>가 아니라 detail?id=<%=rs.getInt("id")%> 이렇게 Controller의 좌표를 넘겨주고
   Controller에서 Model값들을 request에 저장해 detail.jsp로 forward한다
 
+
+
+
+< ------------------------------------------------------------ Model 데이터를 구조화 하기 ------------------------------------------------------------>
+request.setAttribute("title", title);
+request.setAttribute("regdate", regdate);
+request.setAttribute("memberId", memberId);
+request.setAttribute("hit", hit);
+request.setAttribute("files", files);
+request.setAttribute("content", content);
+* 지난 시간에 출력을 위해 사용했던 데이터를 한 단어로 말하면?? ----> 공지사항!
+  이렇게 개념적으로 말 할 수 있는 데이터의 집합을 	-------> 개체(Entity):개념화된 데이터, 다른사람들은 사용자형 자료형으로 따로 형식을 만들어 정의하기도함
+							-------> Entity, 개체, 개념화된 데이터 > 묶어서 계층을 만들었다해서 구조적인 데이터라고 말하기도함 (분야, 상황에 따라 용어 달라짐)
+* 프로그램 만들며 낱개로 설정된 데이터들을 낱개로 사용하면 ------> 반복되는 코드 많아짐, 데이터 구분 어려워짐, 데이터 표현할때 이름 명명시 다른 개념의 데이터와 충돌 해결위해 이름이 길어짐
+  따라서 데이터를 낱개로 보기보다 데이터를 속성이란 이름으로 대치하고 이걸 묶어서 표현하는 방식이 좋아보임
+  -------> request.addAttribute("notice", notice); ----> 객체를 만들어 전달하면 훨씬 더 간단하고 직관적으로 표현 가능
+
+* 이렇게 담으면 EL 표기법을 쓸 수 있음
+  Notice : Entity클래스가 있고 거기에 Getter가 존재하면 아래와 같이 표기가능
+  <%=((Notice)request.getAttribute("notice").getId() %> -------> ${notice.id}	
+(EL표기는 자바를 쓰는 느낌이 아니라 객체를 쓸수있게 해주기 위해 getter를 쓰긴하지만 메소드 호출느낌을 없애기 위해 괄호와, get을 빼고 소문자로 바꿈)

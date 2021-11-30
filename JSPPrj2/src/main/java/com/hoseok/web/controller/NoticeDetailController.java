@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hoseok.web.entity.Notice;
+
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet {
 	// service함수보다는 특화된 서비스를 출력하는것이 바람직하다.
@@ -45,20 +47,32 @@ public class NoticeDetailController extends HttpServlet {
 			// 1. detail.jsp로 흐름이 전이되어야 하는데 흐름을 전달할 수 있는 방법이 있나? 
 			//(list.jsp가 반드시 선행되어 실행해야함) Controller에서 detail.jsp가 실행되어야함 반드시!!
 			String title = rs.getString("title");
-			Date regdate = rs.getDate("regdate");
 			String memberId = rs.getString("memberId");
+			String content = rs.getString("content");
+			Date regdate = rs.getDate("regdate");
 			int hit = rs.getInt("hit");
 			String files = rs.getString("files");
-			String content = rs.getString("content");
 
+			Notice notice = new Notice(
+						id,
+						title,
+						memberId,
+						content,
+						regdate,
+						hit,
+						files
+					);
+			
+			request.setAttribute("notice", notice);
 			//forward하기전에 Model값들 저장함
+			/*
 			request.setAttribute("title", title);
 			request.setAttribute("regdate", regdate);
 			request.setAttribute("memberId", memberId);
 			request.setAttribute("hit", hit);
 			request.setAttribute("files", files);
 			request.setAttribute("content", content);
-			request.getAttribute(content);
+			*/
 			rs.close();
 			st.close();
 			con.close();
