@@ -194,7 +194,7 @@ ResultSet rs = st.executeQuery(sql);
 					%>
 					<tr>
 						<td><%=rs.getInt("id")%></td>
-						<td class="title indent text-align-left"><a href="detail.jsp?id=<%=rs.getInt("id")%>"><%=rs.getString("title") %></a></td>
+						<td class="title indent text-align-left"><a href="detail?id=<%=rs.getInt("id")%>"><%=rs.getString("title") %></a></td>
 						<td><%=rs.getString("memberId") %></td>
 						<td>
 							<%=rs.getDate("regdate") %>		
