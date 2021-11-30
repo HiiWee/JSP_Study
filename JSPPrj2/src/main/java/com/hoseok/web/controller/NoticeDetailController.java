@@ -92,7 +92,7 @@ public class NoticeDetailController extends HttpServlet {
 		// 절대경로
 		//RequestDispatcher dispatcher = request.getRequestDispatcher(URL);
 		//dispatcher.forward(request, response); 도 가능
-		request.getRequestDispatcher("/notice/detail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp").forward(request, response);
 			
 	}
 }
