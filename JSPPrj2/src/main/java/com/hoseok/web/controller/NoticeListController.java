@@ -69,7 +69,6 @@ public class NoticeListController extends HttpServlet{
 			e.printStackTrace();
 		}
 		request.setAttribute("list", list);
-//		TODO VIEW page를 은닉했는데 css, js파일은 경로 수정을 왜 안해도 되지?
 		request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(request, response);
 	}
 }

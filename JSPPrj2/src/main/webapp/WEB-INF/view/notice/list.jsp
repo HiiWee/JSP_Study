@@ -2,7 +2,9 @@
 <%@page import="com.hoseok.web.entity.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  
+    
+    <!-- JSTL위한 라이브러리 불러오기 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     
 <!DOCTYPE html>
@@ -177,14 +179,20 @@
 						</tr>
 					</thead>
 					<tbody>
+					
+					<!-- 자바 코드블록을 없애고 대신할 수 있는 무엇인가 대체 필요 -->
+					
 					<!-- List를 지역변수로 둬야 for each문을 돌릴 수 있다. -->
 					<!-- 지역변수로 두었기 때문에 EL 키워드는 사용할 수 없다 왜? 저장소가 아니므로 -->
 					<!-- EL을 쓰기위해 이 페이지내에서 쓰이는 pageContext에 담음 -->
-					<% 
+					<%-- <% 
 					List<Notice> list = (List<Notice>)request.getAttribute("list");
 					for (Notice notice : list) {
 						pageContext.setAttribute("notice", notice);
-					%>
+					%> --%>
+					
+					<!-- 위 주석처리 코드의 역할을 아래 태그에서 해준다 -->
+					<c:forEach var="notice" items="${list}">
 					<tr>
 						<td>${notice.id}</td>
 						<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a></td>
@@ -192,9 +200,10 @@
 						<td>${notice.regdate}</td>
 						<td>${notice.hit}</td>
 					</tr>
-					<%
+					</c:forEach>
+					<%-- <%
 					}
-					%>					
+					%> --%>				
 					</tbody>
 				</table>
 			</div>
