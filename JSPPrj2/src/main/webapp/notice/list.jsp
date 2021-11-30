@@ -1,20 +1,9 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="java.util.List"%>
+<%@page import="com.hoseok.web.entity.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   
-<%
-String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
-String sql = "select * from notice";
 
-Class.forName("com.mysql.cj.jdbc.Driver");
-Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
-Statement st = con.createStatement();
-ResultSet rs = st.executeQuery(sql);
-
-%>
     
 <!DOCTYPE html>
 <html>
@@ -188,22 +177,24 @@ ResultSet rs = st.executeQuery(sql);
 						</tr>
 					</thead>
 					<tbody>
-					
+					<!-- List를 지역변수로 둬야 for each문을 돌릴 수 있다. -->
+					<!-- 지역변수로 두었기 때문에 EL 키워드는 사용할 수 없다 왜? 저장소가 아니므로 -->
+					<!-- EL을 쓰기위해 이 페이지내에서 쓰이는 pageContext에 담음 -->
 					<% 
-					while(rs.next()) { 
+					List<Notice> list = (List<Notice>)request.getAttribute("list");
+					for (Notice notice : list) {
+						pageContext.setAttribute("notice", notice);
 					%>
 					<tr>
-						<td><%=rs.getInt("id")%></td>
-						<td class="title indent text-align-left"><a href="detail?id=<%=rs.getInt("id")%>"><%=rs.getString("title") %></a></td>
-						<td><%=rs.getString("memberId") %></td>
-						<td>
-							<%=rs.getDate("regdate") %>		
-						</td>
-						<td><%=rs.getInt("hit") %></td>
+						<td>${notice.id}</td>
+						<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a></td>
+						<td>${notice.memberId}</td>
+						<td>${notice.regdate}</td>
+						<td>${notice.hit}</td>
 					</tr>
 					<%
 					}
-					%>
+					%>					
 					</tbody>
 				</table>
 			</div>
@@ -278,8 +269,3 @@ ResultSet rs = st.executeQuery(sql);
     </html>
     
     
-    <%
-	rs.close();
-	st.close();
-	con.close();
-    %>

@@ -205,8 +205,7 @@ Map n = new HashMap("title", "제목");						((Map)request.getAttribute("n")).ge
 request.setAttribute("n", n);						
 
 						EL 표기법으로 변환
-List list = new ArrayList() {"1", "test"...};					${n.title}		// 키와 value값이므로 .연산자를 이용해 불러옴 AttrName.MapKey
-request.setAttribute("list", list);									
+										${n.title}		// 키와 value값이므로 .연산자를 이용해 불러옴 AttrName.MapKey
 
 
 
@@ -378,4 +377,19 @@ request.setAttribute("content", content);
 * 이렇게 담으면 EL 표기법을 쓸 수 있음
   Notice : Entity클래스가 있고 거기에 Getter가 존재하면 아래와 같이 표기가능
   <%=((Notice)request.getAttribute("notice").getId() %> -------> ${notice.id}	
-(EL표기는 자바를 쓰는 느낌이 아니라 객체를 쓸수있게 해주기 위해 getter를 쓰긴하지만 메소드 호출느낌을 없애기 위해 괄호와, get을 빼고 소문자로 바꿈)
+		(EL표기는 자바를 쓰는 느낌이 아니라 객체를 쓸수있게 해주기 위해 getter를 쓰긴하지만 메소드 호출느낌을 없애기 위해 괄호와, get을 빼고 소문자로 바꿈)
+
+
+
+
+
+
+< ------------------------------------------------------------ 목록페이지(list.jsp) MVC Model2로 수정하기 ------------------------------------------------------------>
+* list.jsp는 반복을 돌면서 List 객체에서 Notice Entity를 하나씩 사용하는데
+* EL은 반복문을 처리하는 기능이 따로 없다.
+* 따라서 따로 태그 라이브러리를 사용하지만 일단 자바코드로 대체한다
+* 다음부터는 Controller를 먼저 만들고 view를 생성하는 일반적인 방식으로 !
+
+
+
+
