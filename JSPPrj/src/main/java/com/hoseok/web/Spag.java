@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // 컨트롤러에서 만든 데이터를 뷰 단으로 연결하기 위한 연결고리 (저장소)필요
-@WebServlet("/spage")
+@WebServlet("/spag")
 public class Spag extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
