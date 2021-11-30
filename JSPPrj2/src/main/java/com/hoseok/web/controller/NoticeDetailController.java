@@ -1,4 +1,4 @@
-// NoticeDetaiiController
+ï»¿// NoticeDetaiiController
 package com.hoseok.web.controller;
 
 import java.io.IOException;
@@ -19,13 +19,13 @@ import com.hoseok.web.entity.Notice;
 
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet {
-	// serviceÇÔ¼öº¸´Ù´Â Æ¯È­µÈ ¼­ºñ½º¸¦ Ãâ·ÂÇÏ´Â°ÍÀÌ ¹Ù¶÷Á÷ÇÏ´Ù.
+	// serviceí•¨ìˆ˜ë³´ë‹¤ëŠ” íŠ¹í™”ëœ ì„œë¹„ìŠ¤ë¥¼ ì¶œë ¥í•˜ëŠ”ê²ƒì´ ë°”ëŒì§í•˜ë‹¤.
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// get ¹æ½ÄÀ¸·Î ¹Ş¾Æ¿Â id°ªÀ» int id º¯¼ö¿¡ ´ãÀ½
-		// MVC MODEL 1 ¹æ½ÄÀ¸·Î º¯È¯ÇÏ±â
+		// get ë°©ì‹ìœ¼ë¡œ ë°›ì•„ì˜¨ idê°’ì„ int id ë³€ìˆ˜ì— ë‹´ìŒ
+		// MVC MODEL 1 ë°©ì‹ìœ¼ë¡œ ë³€í™˜í•˜ê¸°
 
 		int id = Integer.parseInt(request.getParameter("id")); 
 
@@ -42,10 +42,10 @@ public class NoticeDetailController extends HttpServlet {
 
 			rs.next();
 
-			// Model : view´Ü¿¡ ³Ñ°ÜÁà¾ßÇÔ ¾î¶»°Ô ³Ñ±æ±î?
-			// 2°¡Áö ¹®Á¦°¡ ÀÖ´Ù.
-			// 1. detail.jsp·Î Èå¸§ÀÌ ÀüÀÌµÇ¾î¾ß ÇÏ´Âµ¥ Èå¸§À» Àü´ŞÇÒ ¼ö ÀÖ´Â ¹æ¹ıÀÌ ÀÖ³ª? 
-			//(list.jsp°¡ ¹İµå½Ã ¼±ÇàµÇ¾î ½ÇÇàÇØ¾ßÇÔ) Controller¿¡¼­ detail.jsp°¡ ½ÇÇàµÇ¾î¾ßÇÔ ¹İµå½Ã!!
+			// Model : viewë‹¨ì— ë„˜ê²¨ì¤˜ì•¼í•¨ ì–´ë–»ê²Œ ë„˜ê¸¸ê¹Œ?
+			// 2ê°€ì§€ ë¬¸ì œê°€ ìˆë‹¤.
+			// 1. detail.jspë¡œ íë¦„ì´ ì „ì´ë˜ì–´ì•¼ í•˜ëŠ”ë° íë¦„ì„ ì „ë‹¬í•  ìˆ˜ ìˆëŠ” ë°©ë²•ì´ ìˆë‚˜? 
+			//(list.jspê°€ ë°˜ë“œì‹œ ì„ í–‰ë˜ì–´ ì‹¤í–‰í•´ì•¼í•¨) Controllerì—ì„œ detail.jspê°€ ì‹¤í–‰ë˜ì–´ì•¼í•¨ ë°˜ë“œì‹œ!!
 			String title = rs.getString("title");
 			String memberId = rs.getString("memberId");
 			String content = rs.getString("content");
@@ -64,7 +64,7 @@ public class NoticeDetailController extends HttpServlet {
 					);
 			
 			request.setAttribute("notice", notice);
-			//forwardÇÏ±âÀü¿¡ Model°ªµé ÀúÀåÇÔ
+			//forwardí•˜ê¸°ì „ì— Modelê°’ë“¤ ì €ì¥í•¨
 			/*
 			request.setAttribute("title", title);
 			request.setAttribute("regdate", regdate);
@@ -86,12 +86,12 @@ public class NoticeDetailController extends HttpServlet {
 		}
 		
 		
-		// Servlet ¿¡¼­ ServletÀ¸·Î ÀüÀÌÇÏ´Â ¹æ¹ı
-		// 1. redirect : ¼­ºí¸´ È£Ãâ½Ã ¿©±â¼­ ¾Æ¿¹ ´Ù¸¥ÆäÀÌÁö·Î °¡¹ö¸®´Â ¹æ¹ı (·Î±×ÀÎ¾ÈÇÏ°í Á¢±Ù ½Ã, °Ô½Ã¹° µî·Ï½Ã ¸ñ·ÏÆäÀÌÁö·Î ÀüÀÌ)
-		// 2. forward : ÇöÀç ¼­ºí¸´¿¡¼­ ÀÛ¾÷ÇÑ ³»¿ëÀ» ÀÌ¾î¹Ş¾Æ¼­ jsp¿¡¼­ Ã³¸®ÇØ¾ß ÇÏ´Â°æ¿ì
-		// Àı´ë°æ·Î
+		// Servlet ì—ì„œ Servletìœ¼ë¡œ ì „ì´í•˜ëŠ” ë°©ë²•
+		// 1. redirect : ì„œë¸”ë¦¿ í˜¸ì¶œì‹œ ì—¬ê¸°ì„œ ì•„ì˜ˆ ë‹¤ë¥¸í˜ì´ì§€ë¡œ ê°€ë²„ë¦¬ëŠ” ë°©ë²• (ë¡œê·¸ì¸ì•ˆí•˜ê³  ì ‘ê·¼ ì‹œ, ê²Œì‹œë¬¼ ë“±ë¡ì‹œ ëª©ë¡í˜ì´ì§€ë¡œ ì „ì´)
+		// 2. forward : í˜„ì¬ ì„œë¸”ë¦¿ì—ì„œ ì‘ì—…í•œ ë‚´ìš©ì„ ì´ì–´ë°›ì•„ì„œ jspì—ì„œ ì²˜ë¦¬í•´ì•¼ í•˜ëŠ”ê²½ìš°
+		// ì ˆëŒ€ê²½ë¡œ
 		//RequestDispatcher dispatcher = request.getRequestDispatcher(URL);
-		//dispatcher.forward(request, response); µµ °¡´É
+		//dispatcher.forward(request, response); ë„ ê°€ëŠ¥
 		request.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp").forward(request, response);
 			
 	}

@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,21 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 public class NoticeReg extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO JAVADOCS: Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛµÇ´Â ÀÀ´äÀÇ ¹®ÀÚ ÀÎÄÚµù(MIME ¹®ÀÚ ÁýÇÕ)À» ¼³Á¤
+		// TODO JAVADOCS: í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡ë˜ëŠ” ì‘ë‹µì˜ ë¬¸ìž ì¸ì½”ë”©(MIME ë¬¸ìž ì§‘í•©)ì„ ì„¤ì •
 		response.setCharacterEncoding("UTF-8");
 		
-		// TODO JAVADOCS: ¿äÃ»ÀÇ º»¹®¿¡ »ç¿ëµÈ ¹®ÀÚ ÀÎÄÚµùÀÇ ÀÌ¸§À» ÀçÁ¤ÀÇÇÕ´Ï´Ù. ÀÌ ¸Þ¼Òµå´Â ¿äÃ» ¸Å°³º¯¼ö¸¦ ÀÐ°Å³ª getReader()¸¦ »ç¿ëÇÏ¿© ÀÔ·ÂÀ» ÀÐ±â Àü¿¡ È£ÃâÇØ¾ß ÇÕ´Ï´Ù. ±×·¸Áö ¾ÊÀ¸¸é È¿°ú°¡ ¾ø½À´Ï´Ù.
-		// »ç¿ëÀÚÀÇ ÀÔ·Â°ªÀ» UTF 8 ·Î ÀÐ¾îµéÀÓ
-		//request.setCharacterEncoding("UTF-8");	ÇÊÅÍ·Î ¼³Á¤À» »©´Â ÀÛ¾÷ÇÒ°ÍÀÌ¶ó ÁÖ¼®Ã³¸®
+		// TODO JAVADOCS: ìš”ì²­ì˜ ë³¸ë¬¸ì— ì‚¬ìš©ëœ ë¬¸ìž ì¸ì½”ë”©ì˜ ì´ë¦„ì„ ìž¬ì •ì˜í•©ë‹ˆë‹¤. ì´ ë©”ì†Œë“œëŠ” ìš”ì²­ ë§¤ê°œë³€ìˆ˜ë¥¼ ì½ê±°ë‚˜ getReader()ë¥¼ ì‚¬ìš©í•˜ì—¬ ìž…ë ¥ì„ ì½ê¸° ì „ì— í˜¸ì¶œí•´ì•¼ í•©ë‹ˆë‹¤. ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ íš¨ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.
+		// ì‚¬ìš©ìžì˜ ìž…ë ¥ê°’ì„ UTF 8 ë¡œ ì½ì–´ë“¤ìž„
+		//request.setCharacterEncoding("UTF-8");	í•„í„°ë¡œ ì„¤ì •ì„ ë¹¼ëŠ” ìž‘ì—…í• ê²ƒì´ë¼ ì£¼ì„ì²˜ë¦¬
 		
-		//Å¬¶óÀÌ¾ðÆ®°¡ ¹Þ°í³ª¼­ ¾î¶»°Ô ÇØ¼®ÇÒ°ÍÀÎ°¡¿¡ ´ëÇÑ Á¤º¸¸¦ Àü´Þ
-		// TODO JAVADOCS:  Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛµÇ´Â ÀÀ´äÀÇ ÄÜÅÙÃ÷ À¯ÇüÀ» ¼³Á¤ÇÕ´Ï´Ù. ÁÖ¾îÁø ÄÜÅÙÃ÷ À¯Çü¿¡´Â ¹®ÀÚ ÀÎÄÚµù »ç¾çÀÌ Æ÷ÇÔµÉ ¼ö ÀÖ½À´Ï´Ù
+		//í´ë¼ì´ì–¸íŠ¸ê°€ ë°›ê³ ë‚˜ì„œ ì–´ë–»ê²Œ í•´ì„í• ê²ƒì¸ê°€ì— ëŒ€í•œ ì •ë³´ë¥¼ ì „ë‹¬
+		// TODO JAVADOCS:  í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡ë˜ëŠ” ì‘ë‹µì˜ ì½˜í…ì¸  ìœ í˜•ì„ ì„¤ì •í•©ë‹ˆë‹¤. ì£¼ì–´ì§„ ì½˜í…ì¸  ìœ í˜•ì—ëŠ” ë¬¸ìž ì¸ì½”ë”© ì‚¬ì–‘ì´ í¬í•¨ë  ìˆ˜ ìžˆìŠµë‹ˆë‹¤
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
 		
-		// ÀÔ·Âµµ±¸(request) ÀÌ¿ë getParameter´Â Äõ¸®½ºÆ®¸µÀÇ Å°¿öµå¸¦ ÀÐ¾î¿È(Àü´ÞÀº ¹«Á¶°Ç ¹®ÀÚ¿­·Î Àü´ÞµÊ)
-		// ´Ù¸¸ ±âº»°ªÀÌ ¾øÀ¸¹Ç·Î Äõ¸®½ºÆ®¸µÀ» ¾²Áö ¾ÊÀ¸¸é ¿À·ù°¡ ³­´Ù.
+		// ìž…ë ¥ë„êµ¬(request) ì´ìš© getParameterëŠ” ì¿¼ë¦¬ìŠ¤íŠ¸ë§ì˜ í‚¤ì›Œë“œë¥¼ ì½ì–´ì˜´(ì „ë‹¬ì€ ë¬´ì¡°ê±´ ë¬¸ìžì—´ë¡œ ì „ë‹¬ë¨)
+		// ë‹¤ë§Œ ê¸°ë³¸ê°’ì´ ì—†ìœ¼ë¯€ë¡œ ì¿¼ë¦¬ìŠ¤íŠ¸ë§ì„ ì“°ì§€ ì•Šìœ¼ë©´ ì˜¤ë¥˜ê°€ ë‚œë‹¤.
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		

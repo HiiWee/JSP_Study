@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ public class Calc2Application extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 1.Application °´Ã¼
+		// 1.Application ê°ì²´
 		ServletContext application = request.getServletContext();
 		
 		response.setCharacterEncoding("utf-8");
@@ -30,8 +30,8 @@ public class Calc2Application extends HttpServlet {
 			v = Integer.parseInt(v_);
 		}
 
-		// °ªÀ» °è»ê
-		if (op.equals("=")) { // +, -´Â °ªÀ» ÀúÀåÇÏ±â¸¸ ÇÏ¸éµÇÁö¸¸ =Àº °è»êÀ» ÇØ¾ßÇÏ¹Ç·Î
+		// ê°’ì„ ê³„ì‚°
+		if (op.equals("=")) { // +, -ëŠ” ê°’ì„ ì €ì¥í•˜ê¸°ë§Œ í•˜ë©´ë˜ì§€ë§Œ =ì€ ê³„ì‚°ì„ í•´ì•¼í•˜ë¯€ë¡œ
 			int x = (Integer) application.getAttribute("value");
 			int y = v;
 			String operator = (String) application.getAttribute("op");
@@ -41,11 +41,11 @@ public class Calc2Application extends HttpServlet {
 				result = x + y;
 			else
 				result = x - y;
-			response.getWriter().println("°á°ú´Â " + result + "ÀÔ´Ï´Ù.");
+			response.getWriter().println("ê²°ê³¼ëŠ” " + result + "ì…ë‹ˆë‹¤.");
 		}
-		// °ªÀ» ÀúÀå
+		// ê°’ì„ ì €ì¥
 		else {
-			// Map Collection°ú ´àÀ½
+			// Map Collectionê³¼ ë‹®ìŒ
 			application.setAttribute("value", v);
 			application.setAttribute("op", op);
 		}

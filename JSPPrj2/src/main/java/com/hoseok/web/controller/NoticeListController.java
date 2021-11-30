@@ -1,4 +1,4 @@
-package com.hoseok.web.controller;
+ï»¿package com.hoseok.web.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hoseok.web.entity.Notice;
 
-// ÀÌ ÆäÀÌÁö¿¡¼­ÀÇ ModelÀº ¸ñ·ÏÀÓ µû¶ó¼­ ¸®½ºÆ® °´Ã¼ ÀÌ¿ë
+// ì´ í˜ì´ì§€ì—ì„œì˜ Modelì€ ëª©ë¡ì„ ë”°ë¼ì„œ ë¦¬ìŠ¤íŠ¸ ê°ì²´ ì´ìš©
 @WebServlet("/notice/list")
 public class NoticeListController extends HttpServlet{
 	@Override
@@ -54,7 +54,7 @@ public class NoticeListController extends HttpServlet{
 						files
 						);
 				
-				// ¸ñ·ÏÀ» À§ÇØ ¸®½ºÆ® °´Ã¼¿¡ ´ã¾Æ³õÀ½
+				// ëª©ë¡ì„ ìœ„í•´ ë¦¬ìŠ¤íŠ¸ ê°ì²´ì— ë‹´ì•„ë†“ìŒ
 				list.add(notice);
 			}
 			

@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +17,7 @@ public class CalcPage extends HttpServlet {
 			throws ServletException, IOException {
 		
 		Cookie[] cookies = request.getCookies();
-		// ¿¬»ê½ÄÀ» »Ì±â À§ÇØ
+		// ì—°ì‚°ì‹ì„ ë½‘ê¸° ìœ„í•´
 		String exp = "0";
 		if (cookies != null)
 			for (Cookie c : cookies)
@@ -29,8 +29,8 @@ public class CalcPage extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; utf-8");
 		PrintWriter out = response.getWriter();
-		//<!-- <------------------------------ µ¿ÀûÀÎ ÆäÀÌÁö(¼­¹ö ÆäÀÌÁö)ÀÇ ÇÊ¿ä¼º -----------------------------==> -->
-		// <!-- Ã³À½ÀÌÀÚ ¸¶Áö¸·À¸·Î µ¿ÀûÀÎ ÆäÀÌÁö ¼­ºí¸´À¸·Î Á÷Á¢ ¸¸µé±â -->
+		//<!-- <------------------------------ ë™ì ì¸ í˜ì´ì§€(ì„œë²„ í˜ì´ì§€)ì˜ í•„ìš”ì„± -----------------------------==> -->
+		// <!-- ì²˜ìŒì´ì ë§ˆì§€ë§‰ìœ¼ë¡œ ë™ì ì¸ í˜ì´ì§€ ì„œë¸”ë¦¿ìœ¼ë¡œ ì§ì ‘ ë§Œë“¤ê¸° -->
 
 		out.write("<!doctype html>");
 		out.write("<html lang=\"ko\">");

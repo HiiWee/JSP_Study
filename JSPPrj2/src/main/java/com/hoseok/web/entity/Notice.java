@@ -1,17 +1,17 @@
-package com.hoseok.web.entity;
+ï»¿package com.hoseok.web.entity;
 
 import java.util.Date;
 
 /*
- * ÇÁ·Î±×·¥ ¸¸µé¸ç ³¹°³·Î ¼³Á¤µÈ µ¥ÀÌÅÍµéÀ» ³¹°³·Î »ç¿ëÇÏ¸é
- * ------> ¹Ýº¹µÇ´Â ÄÚµå ¸¹¾ÆÁü, µ¥ÀÌÅÍ ±¸ºÐ ¾î·Á¿öÁü, µ¥ÀÌÅÍ Ç¥ÇöÇÒ¶§ ÀÌ¸§ ¸í¸í½Ã ´Ù¸¥ °³³äÀÇ µ¥ÀÌÅÍ¿Í Ãæµ¹ ÇØ°áÀ§ÇØ ÀÌ¸§ÀÌ ±æ¾îÁü
- * µû¶ó¼­ µ¥ÀÌÅÍ¸¦ ³¹°³·Î º¸±âº¸´Ù µ¥ÀÌÅÍ¸¦ ¼Ó¼ºÀÌ¶õ ÀÌ¸§À¸·Î ´ëÄ¡ÇÏ°í ÀÌ°É ¹­¾î¼­ Ç¥ÇöÇÏ´Â ¹æ½ÄÀÌ ÁÁ¾Æº¸ÀÓ
- * -------> request.addAttribute("notice", notice); ----> °´Ã¼¸¦ ¸¸µé¾î Àü´ÞÇÏ¸é ÈÎ¾À ´õ °£´ÜÇÏ°í Á÷°üÀûÀ¸·Î Ç¥Çö °¡´É
+ * í”„ë¡œê·¸ëž¨ ë§Œë“¤ë©° ë‚±ê°œë¡œ ì„¤ì •ëœ ë°ì´í„°ë“¤ì„ ë‚±ê°œë¡œ ì‚¬ìš©í•˜ë©´
+ * ------> ë°˜ë³µë˜ëŠ” ì½”ë“œ ë§Žì•„ì§, ë°ì´í„° êµ¬ë¶„ ì–´ë ¤ì›Œì§, ë°ì´í„° í‘œí˜„í• ë•Œ ì´ë¦„ ëª…ëª…ì‹œ ë‹¤ë¥¸ ê°œë…ì˜ ë°ì´í„°ì™€ ì¶©ëŒ í•´ê²°ìœ„í•´ ì´ë¦„ì´ ê¸¸ì–´ì§
+ * ë”°ë¼ì„œ ë°ì´í„°ë¥¼ ë‚±ê°œë¡œ ë³´ê¸°ë³´ë‹¤ ë°ì´í„°ë¥¼ ì†ì„±ì´ëž€ ì´ë¦„ìœ¼ë¡œ ëŒ€ì¹˜í•˜ê³  ì´ê±¸ ë¬¶ì–´ì„œ í‘œí˜„í•˜ëŠ” ë°©ì‹ì´ ì¢‹ì•„ë³´ìž„
+ * -------> request.addAttribute("notice", notice); ----> ê°ì²´ë¥¼ ë§Œë“¤ì–´ ì „ë‹¬í•˜ë©´ í›¨ì”¬ ë” ê°„ë‹¨í•˜ê³  ì§ê´€ì ìœ¼ë¡œ í‘œí˜„ ê°€ëŠ¥
  * 
- * À§¿Í °°Àº ÀÌÀ¯·Î ¸¸µç °´Ã¼
+ * ìœ„ì™€ ê°™ì€ ì´ìœ ë¡œ ë§Œë“  ê°ì²´
  * */
 
-// Notice Entity °´Ã¼
+// Notice Entity ê°ì²´
 public class Notice {
 	private int id;
 	private String title;

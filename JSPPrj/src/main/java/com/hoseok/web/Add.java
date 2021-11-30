@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,6 +32,6 @@ public class Add extends HttpServlet {
 		}
 
 		result = x + y;
-		response.getWriter().println("µ¡¼À °á°ú´Â " + result + "ÀÔ´Ï´Ù.");
+		response.getWriter().println("ë§ì…ˆ ê²°ê³¼ëŠ” " + result + "ì…ë‹ˆë‹¤.");
 	}
 }

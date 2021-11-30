@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,11 +31,11 @@ public class Calc extends HttpServlet {
 			y = Integer.parseInt(y_);
 		}
 		
-		if (op.equals("µ¡¼À"))
+		if (op.equals("ë§ì…ˆ"))
 			result = x + y;
 		else
 			result = x - y;
 			
-		response.getWriter().println("°á°ú´Â " + result + "ÀÔ´Ï´Ù.");
+		response.getWriter().println("ê²°ê³¼ëŠ” " + result + "ì…ë‹ˆë‹¤.");
 	}
 }

@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ public class Calc2Session extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 2.Session °´Ã¼
+		// 2.Session ê°ì²´
 		HttpSession session = request.getSession();
 		
 		response.setCharacterEncoding("utf-8");
@@ -30,24 +30,24 @@ public class Calc2Session extends HttpServlet {
 			v = Integer.parseInt(v_);
 		}
 
-		// °ªÀ» °è»ê
-		if (op.equals("=")) { // +, -´Â °ªÀ» ÀúÀåÇÏ±â¸¸ ÇÏ¸éµÇÁö¸¸ =Àº °è»êÀ» ÇØ¾ßÇÏ¹Ç·Î
+		// ê°’ì„ ê³„ì‚°
+		if (op.equals("=")) { // +, -ëŠ” ê°’ì„ ì €ì¥í•˜ê¸°ë§Œ í•˜ë©´ë˜ì§€ë§Œ =ì€ ê³„ì‚°ì„ í•´ì•¼í•˜ë¯€ë¡œ
 			//int x = (Integer) application.getAttribute("value");
-			int x = (Integer) session.getAttribute("value");	// application°ú µ¿ÀÏ
+			int x = (Integer) session.getAttribute("value");	// applicationê³¼ ë™ì¼
 			int y = v;
 			//String operator = (String) application.getAttribute("op");
-			String operator = (String) session.getAttribute("op"); // application°ú µ¿ÀÏ
+			String operator = (String) session.getAttribute("op"); // applicationê³¼ ë™ì¼
 			int result = 0;
 
 			if (operator.equals("+"))
 				result = x + y;
 			else
 				result = x - y;
-			response.getWriter().println("°á°ú´Â " + result + "ÀÔ´Ï´Ù.");
+			response.getWriter().println("ê²°ê³¼ëŠ” " + result + "ì…ë‹ˆë‹¤.");
 		}
-		// °ªÀ» ÀúÀå
+		// ê°’ì„ ì €ì¥
 		else {
-			// Map Collection°ú ´àÀ½
+			// Map Collectionê³¼ ë‹®ìŒ
 			//application.setAttribute("value", v);
 			//application.setAttribute("op", op);
 			session.setAttribute("value", v);

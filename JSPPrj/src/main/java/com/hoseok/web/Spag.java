@@ -1,4 +1,4 @@
-// Controller
+ï»¿// Controller
 package com.hoseok.web;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// ÄÁÆ®·Ñ·¯¿¡¼­ ¸¸µç µ¥ÀÌÅÍ¸¦ ºä ´ÜÀ¸·Î ¿¬°áÇÏ±â À§ÇÑ ¿¬°á°í¸® (ÀúÀå¼Ò)ÇÊ¿ä
+// ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ë§Œë“  ë°ì´í„°ë¥¼ ë·° ë‹¨ìœ¼ë¡œ ì—°ê²°í•˜ê¸° ìœ„í•œ ì—°ê²°ê³ ë¦¬ (ì €ì¥ì†Œ)í•„ìš”
 @WebServlet("/spag")
 public class Spag extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -26,17 +26,17 @@ public class Spag extends HttpServlet {
 		String result;
 
 		if (num % 2 == 0)
-			result = "Â¦¼ö";
+			result = "ì§ìˆ˜";
 		else
-			result = "È¦¼ö";
+			result = "í™€ìˆ˜";
 
 		request.setAttribute("result", result);
 
-		// ELÇ¥±â¹ı ÀÌ¿ëÇÑ ¹è¿­ Àü´Ş
+		// ELí‘œê¸°ë²• ì´ìš©í•œ ë°°ì—´ ì „ë‹¬
 		String[] names = {"newlec", "dragon"};
 		request.setAttribute("names", names);
 		
-		// ELÇ¥±â¹ı ÀÌ¿ëÇÑ Map Àü´Ş
+		// ELí‘œê¸°ë²• ì´ìš©í•œ Map ì „ë‹¬
 		Map<String, Object> notice = new HashMap<String, Object>();
 		notice.put("id", 1);
 		notice.put("title", "EL expression");
@@ -44,7 +44,7 @@ public class Spag extends HttpServlet {
 		
 		
 		
-		// Forwarding request¸¦ jsp¿Í °øÀ¯        Àı´ë°æ·ÎÀÇ ½ÃÀÛÀº webappÀÌ¹Ç·Î / == webapp
+		// Forwarding requestë¥¼ jspì™€ ê³µìœ         ì ˆëŒ€ê²½ë¡œì˜ ì‹œì‘ì€ webappì´ë¯€ë¡œ / == webapp
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/spag.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,9 +22,9 @@ public class Add2 extends HttpServlet {
 		int result = 0;
 		
 		for (int i = 0; i < num_.length; i++) {
-			int num = Integer.parseInt(num_[i]);	// ¿¬»êÀº ¹Ýº¹µÇÁö¸¸ ¼±¾ðÀº ¹Ýº¹µÇÁö ¾ÊÀ½
+			int num = Integer.parseInt(num_[i]);	// ì—°ì‚°ì€ ë°˜ë³µë˜ì§€ë§Œ ì„ ì–¸ì€ ë°˜ë³µë˜ì§€ ì•ŠìŒ
 			result += num;
 		}
-		response.getWriter().println("µ¡¼À °á°ú´Â " + result + "ÀÔ´Ï´Ù.");
+		response.getWriter().println("ë§ì…ˆ ê²°ê³¼ëŠ” " + result + "ìž…ë‹ˆë‹¤.");
 	}
 }

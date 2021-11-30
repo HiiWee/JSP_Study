@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 
@@ -17,17 +17,17 @@ public class Calc3 extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 3.Cookie °´Ã¼
+		// 3.Cookie ê°ì²´
 		Cookie[] cookies = request.getCookies();
 
-		// Ãâ·ÂÇÒ ÀÏÀÌ ¾øÀ½
+		// ì¶œë ¥í•  ì¼ì´ ì—†ìŒ
 		// response.setCharacterEncoding("utf-8");
 		// response.setContentType("text/html; utf-8");
 
 		// PrintWriter out = response.getWriter();
 
-		// ¿ì¸®´Â »ç¿ëÀÚ°¡ Àü´ŞÇÑ °ªÀ» °¡Áö°í Ç¥ÇöÀ» ¸¸µé¾î¼­ ÄíÅ°¿¡ ÀúÀåÇÏ°í redirectionÇÑ´Ù
-		// ¾Æ·¡ 3°³Áß ÇÏ³ª¸¸ Àü´ŞµÇ°í ³ª¸ÓÁø NULL°ª µé¾î¿È > null ÀÌ¾Æ´Ñ°ªÀ» ´©ÀûÇÏ´Â ¹æ½Ä
+		// ìš°ë¦¬ëŠ” ì‚¬ìš©ìê°€ ì „ë‹¬í•œ ê°’ì„ ê°€ì§€ê³  í‘œí˜„ì„ ë§Œë“¤ì–´ì„œ ì¿ í‚¤ì— ì €ì¥í•˜ê³  redirectioní•œë‹¤
+		// ì•„ë˜ 3ê°œì¤‘ í•˜ë‚˜ë§Œ ì „ë‹¬ë˜ê³  ë‚˜ë¨¸ì§„ NULLê°’ ë“¤ì–´ì˜´ > null ì´ì•„ë‹Œê°’ì„ ëˆ„ì í•˜ëŠ” ë°©ì‹
 		String value = request.getParameter("value");
 		String operator = request.getParameter("operator");
 		String dot = request.getParameter("dot");
@@ -39,9 +39,9 @@ public class Calc3 extends HttpServlet {
 					exp = c.getValue();
 					break;
 				}
-		// °è»ê ¿¬»ê
+		// ê³„ì‚° ì—°ì‚°
 		if (operator != null && operator.equals("=")) {
-			// ÀÚ¹Ù½ºÅ©¸³Æ®¸¦ ½ÇÇàÇÒ ¼ö ÀÖ´Â ¿£Áø°´Ã¼
+			// ìë°”ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì‹¤í–‰í•  ìˆ˜ ìˆëŠ” ì—”ì§„ê°ì²´
 			ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
 			try {
 				exp = String.valueOf(engine.eval(exp));
@@ -49,7 +49,7 @@ public class Calc3 extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		// Ãë¼Ò ¿¬»ê : ¿©±â¼­´Â expÀÇ °ªÀ» ºñ¿öÁØ´Ù È¤½Ã³ªÇÏ´Â ÀÌÁßÀåÄ¡ ¿ªÇÒ
+		// ì·¨ì†Œ ì—°ì‚° : ì—¬ê¸°ì„œëŠ” expì˜ ê°’ì„ ë¹„ì›Œì¤€ë‹¤ í˜¹ì‹œë‚˜í•˜ëŠ” ì´ì¤‘ì¥ì¹˜ ì—­í• 
 		else if (operator != null && operator.equals("C")) {
 			exp = "";
 		}
@@ -61,13 +61,13 @@ public class Calc3 extends HttpServlet {
 		
 
 		Cookie expCookie = new Cookie("exp", exp);
-		// Ãë¼Ò ¿¬»ê : ¿©±â¼­´Â ÄíÅ°¸¦ ¸¸·á½ÃÄÑ ¾ø¾Ø´Ù.(°ªÀÌ 0ÀÌ¸é ÄíÅ° »èÁ¦µÊ)
+		// ì·¨ì†Œ ì—°ì‚° : ì—¬ê¸°ì„œëŠ” ì¿ í‚¤ë¥¼ ë§Œë£Œì‹œì¼œ ì—†ì•¤ë‹¤.(ê°’ì´ 0ì´ë©´ ì¿ í‚¤ ì‚­ì œë¨)
 		if (operator != null && operator.equals("C")) {
 			expCookie.setMaxAge(0);
 		}
 		expCookie.setPath("");
 		response.addCookie(expCookie);
-		response.sendRedirect("/calcpage"); // °°Àº°æ·Î¿¡ ÀÖÀ¸¹Ç·Î °æ·Î µû·Î ºÙÀÌÁö ¾Ê¾ÆµµµÊ "calcpage" ÀÌ·¸°Ô
+		response.sendRedirect("/calcpage"); // ê°™ì€ê²½ë¡œì— ìˆìœ¼ë¯€ë¡œ ê²½ë¡œ ë”°ë¡œ ë¶™ì´ì§€ ì•Šì•„ë„ë¨ "calcpage" ì´ë ‡ê²Œ
 
 	}
 }

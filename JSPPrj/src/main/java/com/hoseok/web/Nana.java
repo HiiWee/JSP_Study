@@ -1,4 +1,4 @@
-package com.hoseok.web;
+ï»¿package com.hoseok.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,24 +13,24 @@ import javax.servlet.http.HttpServletResponse;
 public class Nana extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO JAVADOCS: Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛµÇ´Â ÀÀ´äÀÇ ¹®ÀÚ ÀÎÄÚµù(MIME ¹®ÀÚ ÁıÇÕ)À» ¼³Á¤
+		// TODO JAVADOCS: í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡ë˜ëŠ” ì‘ë‹µì˜ ë¬¸ì ì¸ì½”ë”©(MIME ë¬¸ì ì§‘í•©)ì„ ì„¤ì •
 		response.setCharacterEncoding("UTF-8");
-		//Å¬¶óÀÌ¾ğÆ®°¡ ¹Ş°í³ª¼­ ¾î¶»°Ô ÇØ¼®ÇÒ°ÍÀÎ°¡¿¡ ´ëÇÑ Á¤º¸¸¦ Àü´Ş
-		// TODO JAVADOCS:  Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛµÇ´Â ÀÀ´äÀÇ ÄÜÅÙÃ÷ À¯ÇüÀ» ¼³Á¤ÇÕ´Ï´Ù. ÁÖ¾îÁø ÄÜÅÙÃ÷ À¯Çü¿¡´Â ¹®ÀÚ ÀÎÄÚµù »ç¾çÀÌ Æ÷ÇÔµÉ ¼ö ÀÖ½À´Ï´Ù
+		//í´ë¼ì´ì–¸íŠ¸ê°€ ë°›ê³ ë‚˜ì„œ ì–´ë–»ê²Œ í•´ì„í• ê²ƒì¸ê°€ì— ëŒ€í•œ ì •ë³´ë¥¼ ì „ë‹¬
+		// TODO JAVADOCS:  í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡ë˜ëŠ” ì‘ë‹µì˜ ì½˜í…ì¸  ìœ í˜•ì„ ì„¤ì •í•©ë‹ˆë‹¤. ì£¼ì–´ì§„ ì½˜í…ì¸  ìœ í˜•ì—ëŠ” ë¬¸ì ì¸ì½”ë”© ì‚¬ì–‘ì´ í¬í•¨ë  ìˆ˜ ìˆìŠµë‹ˆë‹¤
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
 		
-		// ÀÔ·Âµµ±¸(request) ÀÌ¿ë getParameter´Â Äõ¸®½ºÆ®¸µÀÇ Å°¿öµå¸¦ ÀĞ¾î¿È(Àü´ŞÀº ¹«Á¶°Ç ¹®ÀÚ¿­·Î Àü´ŞµÊ)
-		// ´Ù¸¸ ±âº»°ªÀÌ ¾øÀ¸¹Ç·Î Äõ¸®½ºÆ®¸µÀ» ¾²Áö ¾ÊÀ¸¸é ¿À·ù°¡ ³­´Ù.
-		String cnt_ = request.getParameter("cnt");			// ÀÓ½Ãº¯¼ö : null, ""°ª µé¾î¿ÔÀ»¶§ ¿À·ù¹æÁö¸¦ À§ÇÑ ÀÓ½Ãº¯¼ö
+		// ì…ë ¥ë„êµ¬(request) ì´ìš© getParameterëŠ” ì¿¼ë¦¬ìŠ¤íŠ¸ë§ì˜ í‚¤ì›Œë“œë¥¼ ì½ì–´ì˜´(ì „ë‹¬ì€ ë¬´ì¡°ê±´ ë¬¸ìì—´ë¡œ ì „ë‹¬ë¨)
+		// ë‹¤ë§Œ ê¸°ë³¸ê°’ì´ ì—†ìœ¼ë¯€ë¡œ ì¿¼ë¦¬ìŠ¤íŠ¸ë§ì„ ì“°ì§€ ì•Šìœ¼ë©´ ì˜¤ë¥˜ê°€ ë‚œë‹¤.
+		String cnt_ = request.getParameter("cnt");			// ì„ì‹œë³€ìˆ˜ : null, ""ê°’ ë“¤ì–´ì™”ì„ë•Œ ì˜¤ë¥˜ë°©ì§€ë¥¼ ìœ„í•œ ì„ì‹œë³€ìˆ˜
 		int cnt = 10;
 		if (cnt_ != null && !cnt_.equals(""))
 			cnt = Integer.parseInt(cnt_);
 		
 		 
 		for (int i = 0; i < cnt; i++) {
-			out.println((i + 1) + ": ¾È³ç Servlet!!<br>");
+			out.println((i + 1) + ": ì•ˆë…• Servlet!!<br>");
 		}
 	}
 }
