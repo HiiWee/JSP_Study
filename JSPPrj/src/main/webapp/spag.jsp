@@ -52,7 +52,7 @@ pageContext.setAttribute("result", "hello");
 	<br /><br />
 	
 	
-	${param.n/2 }
+	${param.n/2}
 </body>
 </html>
 
