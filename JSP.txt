@@ -87,3 +87,206 @@
 
 < ------------------------------------------------------------  JSP로 만드는 Hello 서블릿 ------------------------------------------------------------>
 nana.jsp 및 nana.java 참조
+
+
+
+
+
+
+< ------------------------------------------------------------  스파게티 코드를 만드는 JSP ------------------------------------------------------------>
+* 순서가 맞으면 여러 코드블록으로 나눠도 되고 합쳐도됨 ----> 이렇게 나뉘면 자바코드만 모아서 보기 어려움 -----> 어떤 블럭이 어디서 오류가 나고 어떤 역할을 하는지 찾기 쉽지 않음----> 스파게티 코드
+
+
+
+
+
+
+< ------------------------------------------------------------  JSP MVC model1 ------------------------------------------------------------>
+* JSP를 잘못만들면 --> 코드블럭이 복잡해짐 --> 어떻게 쉽게 만들어야 할까? --> MVC model1 --코드는 가능하면 위에 모아놓고 밑에는 출력코드만 모아놓음
+
+* 따라서 입력코드블럭에서 만드는 결과물을 출력코드블록으로 이어주는 변수가 필요함 --> 이런 변수가 MODEL임 --> 블럭을 한곳에 모아놓는 방법은? ---> 출력코드는 <%=변수%>만 두고 나머지 제어블록들은 모두 입력코드로 보냄
+  --> 출력할 데이터를 미리 만들고 출력코드에서 출력만 하면 코드가 깔끔해짐 --> 제어라는것을해서 출력을 위해 만들어낸 데이터 == model이라고 부름
+
+* 입력과 제어를 담당 (출력할 데이터를 만들어내는 과정) 
+  > Controller (자바코드)
+
+* 출력데이터를 가져다 쓰는 부분 (출력부분)
+  > View (html코드)
+
+* controller(입력과 제어를 담당하는곳)에서 만든 결과물 == 출력할 데이터
+  > Model
+
+>> MVC 모델 (자바코드와 출력코드를 최대한 분리시키자)
+
+
+
+
+
+
+
+< ------------------------------------------------------------  JSP MVC model1을 model2 방식으로 ------------------------------------------------------------>
+* Model1 : 컨트롤러와 뷰가 물리적으로 분리되지 않은 방식
+* Model2 : Controller와 뷰를 물리적으로 분리 (View만 사용자 요청시 서블릿으로 만들어짐, Controller는 미리 컴파일해놓고 있기 때문에 실행속도 개선) >> 따로 유지관리 좋음
+
+* 분리된 컨트롤러와 뷰를 연결하기 위해 Forwarding이 사용됨 (컨트롤러에서 뷰로 이전되며 흐름을 이어받아 코드 진행하는 것 == Forwarding)
+  > Forwarding은 Dispatcher를 이용해 포워딩을 함
+  > Controller와 View가 계속적으로 추가되면 Controller는 계속 dispatcher를 가지고 있다.(공통적인사항이 각자 가지며 늘어남)
+
+* Dispatcher와 Controller의 분리 (공통적으로 쓰는 디스패처를 하나만 두고 Controller를 따로 모아 놓음)
+* Controller는 POJO클래스로 서블릿이 아닌 일반 클래스로 만듦
+
+* 사용자 요청이 들어오면 디스패쳐가 사용자 요청을 수반해 적절한 컨트롤러를 찾아서 수행하게 진행함
+  > Controller는 로직에 해당되는 뷰를 적당하게 호출할 수 있도록 디스패쳐에게 관련내용을 알려주면 디스패쳐에서 그걸 가지고 호출함 (front controller)
+
+* 일단 프론트컨트롤러는 제외하고 컨트롤러와 뷰만 분리된 형식으로 만들기 
+
+  > 포워딩과 redirect의 차이
+ 	forward : 현재 작업한 내용을 이어갈 수 있게 공유하는것
+	redirect : 현재 작업내용 공유 상관없이 새로운 요청
+
+  > 포워딩 쓰기
+
+	1.RequestDispatcher dispatcher = request.getRequestDispatcher("spage.jsp");
+	  현재 spage라는 URL(@WebServlet매핑)이 있는데 요청이 들어오면 jsp로 요청을 전달하는 것
+	  spage.jsp명만 넣는 이유는 URL상 같은 디렉토리에 있다고 생각하기 때문에 지정하지 않음
+
+	2. dispatcher.forward(request, response);
+ 	  현재 작업한 내용을 spage.jsp로 넘어가면 내용을 이어줌 (jsp지만 결국 서블릿으로 변환됨)
+	  jsp에서 쓰고 있는 request, response가 포워드시 전달된 것과 동일함
+	  일을 이어갈 수 있음
+
+ 	3. result 값을 같이 넘겨줘야 하므로 
+	  이때 사용되는 저장소 request임
+	  (어떤 상태 저장하기 위한 저장소 내부객체)
+		pageContext : 서블릿 페이지 내에서 혼자 사용함
+		request : 포워드 관계에서 사용할 수 있는 저장소
+		session : 현재 세션에서 공유될 수 있는 저장소
+		application : 모든 페이지에서 공유될 수 있는 저장소
+		cookie : 클라이언트에 저장하는 저장소 (서버상에서는 쿠키는 제외하고 총 4개임)
+		https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=kimkwon429&logNo=220760918355 참조하기
+	
+	4. 그럼 실행은 어디서? >>> 무조건 컨트롤러에서 실행해야함 (컨트롤러에서 데이터를 만들기 때문이다)
+	5. 하나 아쉬운점
+		자바 코드블럭의 흔적이 남아있음
+		<body>
+		<!-- result == Model -->
+			<%=request.getAttribute("result")%>
+			입니다.
+		</body>
+	6. EL표기법을 이용해 해결
+
+
+
+
+
+
+< ------------------------------------------------------------ View를 위한 데이터 추출 표현식 EL(Expression Language) ------------------------------------------------------------>
+* JSP를 MVC 방식으로 만들때 요긴하게 쓰인다.
+
+						기존의 방식
+<Controller>						<>			<view>
+request.setAttribute("cnt", 50);						request.getAttribute("cnt")
+						EL 표기법으로 변환		
+request.setAttribute("cnt", 50);						${cnt}		>> "키"값만 쓰면 된다(변수명이 아니라)
+
+
+						<리스트를 쓴다면?>
+List list = new ArrayList() {"1", "test"...};					((List)request.getAttribute("list")).get(0)	// Object타입 반환하므로
+request.setAttribute("list", list);						
+
+						EL 표기법으로 변환
+List list = new ArrayList() {"1", "test"...};					${list[0]}		// 자동적으로 타입변환을 해주고 get(0)을 배열처럼 사용가능 (Array(일반배열)도 동일 )
+request.setAttribute("list", list);			
+
+
+						<Map을 쓴다면?>
+Map n = new HashMap("title", "제목");						((Map)request.getAttribute("n")).get("title")	// Object타입 반환하므로
+request.setAttribute("n", n);						
+
+						EL 표기법으로 변환
+List list = new ArrayList() {"1", "test"...};					${n.title}		// 키와 value값이므로 .연산자를 이용해 불러옴 AttrName.MapKey
+request.setAttribute("list", list);									
+
+
+
+
+
+
+
+
+< ------------------------------------------------------------ EL의 데이터 저장소 ------------------------------------------------------------>
+
+* ${cnt}라는 키워드는 request라 하는 저장소에 담겨있다고 말함
+* 사실은 request저장소에서만 ${cnt}키워드를 검색하는것은 아님
+* 실제로 서버상에 존재하는 사용가능한 저장소는 4개 (page(페이지 내에서 사용할 수 있는 서블릿 객체들을 모아놓음), request, session, application) 이것으로 데이터를 꺼내거나 저장함
+
+* pageContext (하나의 JSP페이지에서 공유가능)
+	jsp 파일에서 pageContext page = setAttribute();로 값을 세팅하면 그 페이지에서 사용가능 >> EL로도 쓸 수 있다.
+
+* EL을 이용해 뽑아낼수있는 객체는 pageContext, request, session, application 어디에 담겨있는것도 뽑아낼 수 있다.
+
+* 만약 4개의 저장소에 같은 키워드 값을 가진 값을 심으면? 어떻게 될까?
+	>> 오류가 나지 않으므로 충돌이 나지 않는거고 이는 곧 우선순위가 있다.
+* EL이 저장소를 찾는 우선순위 (먼저 찾게되면 뒤에있는 값을 뒤지지 않음)
+	1. pageContext
+	2. request
+	3. sesison
+	4. application
+	>> 따라서 page, request에 둘다 있는 값을 꺼내고 싶으면 request값은 절대 못뽑음
+
+* 이를 해결하기 위한 방법 scope (특정한 저장소에서만 값을 꺼내오는 키워드,한정자)
+	>pageScope (page에서만 값을 꺼내옴)
+	>requestScope (request에서만 값을 꺼내옴)
+	>sessionScope (session에서만 값을 꺼내옴)
+	>applicationScope (application에서만 값을 꺼내옴)
+	ex) ${sessionScope.cnt}		(객체가 아니라 한정자다)
+	>> 이는 객체가 아니라 한정자이다. (해당저장소 객체의 기능 쓸수없음)
+
+* EL표기는 4대 저장소 외에도 쓸수있는 다양한 객체 존재
+	param, paramValues, header, headerValues, cookie, initParam, pageContext
+	> 사용방법
+	parameter얻기위해선 : ${param.cnt}
+	header 값얻기위해선 : ${header.host}
+	header에서 변수명명규칙에 어긋나면 : ${header["host"]}
+	
+	>pageContext 사용방법
+	<%=pageContext.getRequest().getMethod() %>	>>	${pageContext.request.method}
+	(현재 request값을 받고 java>jsp로 넘겨줄때 방식이 post인지 get인지 반환)
+	EL표기는 자바를 쓰는 느낌이 아니라 객체를 쓸수있게 해주기 위해
+	getter를 쓰긴하지만 메소드 호출느낌을 없애기 위해 괄호와, get을 빼고 소문자로 바꿈
+
+
+
+
+
+
+
+
+
+< ------------------------------------------------------------ EL 연산자 ------------------------------------------------------------>
+[] .
+()
+not ! empty
+* / div % mod
++ -
+< > <= >= lt(lessThan) gt(greaterThan le ge
+== != eq ne
+&& and
+|| or
+? :
+
+왜 굳이 두 종류의 연산자를 사용할까?
+html은 <>를 가지고 있으므로 안에서 <,>를 쓰는것이 바람직하지 않다 (xhtml : xml기반 문서는 허용안할수도있음)
+그냥 편한거 쓰다 쓸수없는 환경이면 바꿔쓰자~!
+
+* empty 연산자
+	${empty num} == ${num==null || num==""} (null이거나 빈문자면 참값 반환)
+	반대의 동작을 원하면 not empty 이용
+	3항연산자를 이용해서 같이 사용가능
+	${empty param.n? '값이 비어있습니다.' : param.n }
+
+* 만약 ${param.n / 2}
+	문자열이라 오류?
+	정수 나누기 정수라 소수점 떼어내기?
+	실수?
+  >> 정답은 실수로 나타남 만약 소수점을 떼어내고 정수로만 쓰고싶다? 좀 더 특별한 방법 필요 : JSTL
