@@ -5,6 +5,7 @@
     
     <!-- JSTL위한 라이브러리 불러오기 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     
 <!DOCTYPE html>
@@ -192,12 +193,12 @@
 						%> --%>
 						
 						<!-- 위 주석처리 코드의 역할을 아래 태그에서 해준다 -->
-						<c:forEach var="notice" items="${list}" begin="0" end="10">
+						<c:forEach var="notice" items="${list}" begin="0" end="9">
 						<tr>
 							<td>${notice.id}</td>
 							<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a></td>
 							<td>${notice.memberId}</td>
-							<td>${notice.regdate}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${notice.regdate}" /></td>
 							<td>${notice.hit}</td>
 						</tr>
 						</c:forEach>
