@@ -164,7 +164,7 @@
 									<th>작성자</th>
 									<td>${notice.memberId}</td>
 									<th>조회수</th>
-									<td>${notice.hit}</td>
+									<td><fmt:formatNumber type="number" pattern=",####" value="${notice.hit}"/></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
