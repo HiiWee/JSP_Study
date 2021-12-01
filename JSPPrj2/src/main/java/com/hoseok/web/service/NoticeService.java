@@ -90,6 +90,8 @@ public class NoticeService {
 		return list;
 	}
 
+	
+	
 	// 목록 개수 반환해주는 메소드
 	public int getNoticeCount() {
 
@@ -97,21 +99,91 @@ public class NoticeService {
 	}
 
 	public int getNoticeCount(String field, String query) {
-		String sql = "select * "
-				+ "from (select ROW_NUMBER() over(order by n.regdate desc) rownum, n.* from NOTICE n) n2 "
-				+ "where n2.rownum between ? and ?";
-		return 0;
+		String sql = "select count(id) count "
+					+ "from (select ROW_NUMBER() over(order by n.regdate desc) rownum, n.* from NOTICE n "
+					+ "where " + field + " like ?) n2 ";
+		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
+		int count = 0;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
+			PreparedStatement st = con.prepareStatement(sql);
+			
+			st.setString(1, "%" + query + "%");
+			
+			ResultSet rs = st.executeQuery();
+
+			count = rs.getInt("count");
+			
+			rs.close();
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 	// id값에 대한 공지목록을 반환하는 메소드들
 	public Notice getNotice(int id) {
+
+		Notice notice = null;
 		String sql = "select * from notice where id = ?";
-		return null;
+		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			
+			
+			ResultSet rs = st.executeQuery();
+			
+			
+			if (rs.next()) { 
+				int nid = rs.getInt("id");
+				String title = rs.getString("title");
+				String memberId = rs.getString("memberId");
+				String content = rs.getString("content");
+				Date regdate = rs.getDate("regdate");
+				int hit = rs.getInt("hit");
+				String files = rs.getString("files");
+				
+				notice = new Notice(
+						nid,
+						title,
+						memberId,
+						content,
+						regdate,
+						hit,
+						files
+						);
+			}
+			
+			rs.close();
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return notice;
 	}
 
 	// 페이지내에서 이전 다음 공지 목록 반환
 	// 현재 ID에 해당하는 ID로 다음 ID를 구해야함
 	public Notice getNextNotice(int id) {
+		Notice notice = null;
+		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
 		String sql = "select id "
 				+ "from ("
 				+ "    select ROW_NUMBER() over(order by n.regdate) rownum, n.* "
@@ -121,10 +193,56 @@ public class NoticeService {
 				+ "                            from notice "
 				+ "                            where id = ?)) n) n2 "
 				+ "where rownum = 1";
-		return null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			
+			
+			ResultSet rs = st.executeQuery();
+			
+			
+			if (rs.next()) { 
+				int nid = rs.getInt("id");
+				String title = rs.getString("title");
+				String memberId = rs.getString("memberId");
+				String content = rs.getString("content");
+				Date regdate = rs.getDate("regdate");
+				int hit = rs.getInt("hit");
+				String files = rs.getString("files");
+				
+				notice = new Notice(
+						nid,
+						title,
+						memberId,
+						content,
+						regdate,
+						hit,
+						files
+						);
+				
+			}
+			
+			rs.close();
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return notice;
 	}
 
 	public Notice getPrevNotice(int id) {
+
+		Notice notice = null;
+		
+		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
 		String sql = "select id "
 				+ "from ("
 				+ "    select ROW_NUMBER() over(order by n.regdate desc) rownum, n.* "
@@ -134,7 +252,49 @@ public class NoticeService {
 				+ "                            from notice "
 				+ "                            where id = ?)) n) n2 "
 				+ "where rownum = 1";
-		return null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			
+			
+			ResultSet rs = st.executeQuery();
+			
+			
+			if (rs.next()) { 
+				int nid = rs.getInt("id");
+				String title = rs.getString("title");
+				String memberId = rs.getString("memberId");
+				String content = rs.getString("content");
+				Date regdate = rs.getDate("regdate");
+				int hit = rs.getInt("hit");
+				String files = rs.getString("files");
+				
+				notice = new Notice(
+						nid,
+						title,
+						memberId,
+						content,
+						regdate,
+						hit,
+						files
+						);
+				
+			}
+			
+			rs.close();
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return notice;
 	}
 
 }
