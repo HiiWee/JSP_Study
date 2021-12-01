@@ -213,12 +213,13 @@
 			
 			<div class="indexer margin-top align-right">
 				<h3 class="hidden">현재 페이지</h3>
-				<div><span class="text-orange text-strong">1</span> / 1 pages</div>
+														<!-- p값으로 표현 p 공백, 널이면 1페이지 표기 -->
+				<div><span class="text-orange text-strong">${(empty param.p)? 1 : param.p}</span> / 1 pages</div>
 			</div>
 
 			<div class="margin-top align-center pager">	
-		
-	<c:set var="page" value="${(param.p == null) ? 1: param.p}"/>
+				<!-- 페이지번호 하이라이트시 요긴하게 쓰임 -->
+	<c:set var="page" value="${(empty param.p) ? 1: param.p}"/>
 	<c:set var="startNum" value ="${page - (page - 1) % 5 }"/>
 	<c:set var="lastNum" value ="23"/>
 	
@@ -236,8 +237,8 @@
 	
 	<ul class="-list- center">
 	<c:forEach var="i" begin="0" end="4">
-										<!-- 스트링쿼리값으로 보내기 위함 -->
-		<li><a class="-text- orange bold" href="?p=${i+startNum}&f=${param.f }&q=${param.q}" > ${i+startNum} </a></li>
+							<!-- 현재 페이지와 동일한 페이지 목록의 번호는 주황색 처리 -->
+		<li><a class="-text- ${(page == (i+startNum))? 'orange' : ''} bold" href="?p=${i+startNum}&f=${param.f }&q=${param.q}" > ${i+startNum} </a></li>
 	</c:forEach>
 	</ul>
 
