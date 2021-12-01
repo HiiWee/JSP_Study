@@ -225,7 +225,7 @@
 	<div>
 	
 	<c:if test="${startNum > 1}">
-		<a class="btn btn-prev" href="?p=${startNum - 1}&t=&q=">이전</a>
+		<a class="btn btn-prev" href="?p=${startNum - 1}&f=${param.f }&q=${param.q}">이전</a>
 	</c:if>
 	
 	<c:if test="${startNum <= 1}">
@@ -237,14 +237,14 @@
 	<ul class="-list- center">
 	<c:forEach var="i" begin="0" end="4">
 										<!-- 스트링쿼리값으로 보내기 위함 -->
-		<li><a class="-text- orange bold" href="?p=${i+startNum}&t=&q=" > ${i+startNum} </a></li>
+		<li><a class="-text- orange bold" href="?p=${i+startNum}&f=${param.f }&q=${param.q}" > ${i+startNum} </a></li>
 	</c:forEach>
 	</ul>
 
 	<div>
 	<!-- 위의 i의 가장 큰 값보다 하나 더 큰값을 주어야 다음페이지로 넘어가짐 -->
 	<c:if test="${5+startNum <= lastNum}">
-		<a class="btn btn-next" href="?p=${5+startNum}&t=&q=">다음</a>
+		<a class="btn btn-next" href="?p=${5+startNum}&f=&q=">다음</a>
 	</c:if>
 	<c:if test="${5+startNum > lastNum}">
 		<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>

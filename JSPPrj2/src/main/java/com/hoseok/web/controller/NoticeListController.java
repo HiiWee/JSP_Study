@@ -28,20 +28,34 @@ public class NoticeListController extends HttpServlet{
 		
 		String field_ = request.getParameter("f");
 		String query_ = request.getParameter("q");
+		String page_ = request.getParameter("p");
 		
 		String field = "title";
-		if (field_ != null)
+		// 꼭 null과 "" 체크 둘다 해주기!!
+		if (field_ != null && !field_.equals(""))
 			field = field_;
 
 		String query = "";
-		if(query_ != null)
+		// 꼭 null과 "" 체크 둘다 해주기!!
+		if(query_ != null && !query_.equals(""))
 			query = query_;
 		
-		NoticeService service = new NoticeService();
+		int page = 1;
+		// 꼭 null과 "" 체크 둘다 해주기!!
+		if(page_ != null && !page_.equals(""))
+			page = Integer.parseInt(page_);
+
 		
-		List<Notice> list = service.getNoticeList(field, query, 1);
+		NoticeService service = new NoticeService();
+		int totalNotice = service.getNoticeCount(field, query);
+		if (totalNotice == 0)
+			totalNotice = 1;
+		
+		
+		List<Notice> list = service.getNoticeList(field, query, page);
 	
 		request.setAttribute("list", list);
+//		request.setAttribute();
 		request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(request, response);
 	}
 }

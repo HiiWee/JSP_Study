@@ -736,3 +736,25 @@ where rownum = 1;
 * 검색어를 계속 남기기 위해선 value="${param.[name]}값을 꽂아 넣는다.
 * form태그에서 action의 디폴트값은 submit을 누른페이지, method의 디폴트값은 get 방식이다
 * 하지만 목록에서 페이지가 구현되지 않음 --> 이전 다음 안넘어가지고 검색한 값들 초기화됨
+
+
+
+
+
+< ------------------------------------------------------------ 목록에서 페이징 구현하기 ------------------------------------------------------------>
+* 신경쓸게 정말 많다 사소해 보이지만 사용자 입장에선 큰 차이라는거 알아두기 데이터가 m v c를 왔다갔다하는데 놓치는것이 없는지 확인하기
+
+		String field = "title";
+		// 꼭 null과 "" 체크 둘다 해주기!!
+		if (field_ != null && !field_.equals(""))
+			field = field_;
+
+		String query = "";
+		// 꼭 null과 "" 체크 둘다 해주기!!
+		if(query_ != null && !query_.equals(""))
+			query = query_;
+		
+		int page = 1;
+		// 꼭 null과 "" 체크 둘다 해주기!!
+		if(page_ != null && !page_.equals(""))
+			page = Integer.parseInt(page_);
