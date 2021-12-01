@@ -192,7 +192,7 @@
 					%> --%>
 					
 					<!-- 위 주석처리 코드의 역할을 아래 태그에서 해준다 -->
-					<c:forEach var="notice" items="${list}" begin="0" end="3" varStatus="st">
+					<c:forEach var="notice" items="${list}" begin="0" end="3">
 					<tr>
 						<td>${notice.id}</td>
 						<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a></td>
@@ -221,8 +221,15 @@
 		<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
 		
 	</div>
+	
+	<c:set var="page" value="${(param.p == null) ? 1: param.p}"/>
+	<c:set var="startNum" value ="${page - (page % 5 - 1) }"/>
+	
 	<ul class="-list- center">
-		<li><a class="-text- orange bold" href="?p=1&t=&q=" >1</a></li>
+		<c:forEach var="i" begin="0" end="4">
+											<!-- 스트링쿼리값으로 보내기 위함 -->
+		<li><a class="-text- orange bold" href="?p=${i+startNum}&t=&q=" > ${i+startNum} </a></li>
+		</c:forEach>
 				
 	</ul>
 	<div>
