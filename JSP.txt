@@ -583,4 +583,15 @@ ${st.step}       반복되는 인덱스의 증가치(step옵션으로 1씩 증�
 
 
 
+
 < ------------------------------------------------------------ JSTL : functions로 EL에서 함수 이용하기 ------------------------------------------------------------>
+* 업로드한 파일목록에서 출력만 대문자로 출력하고 싶은경우 >> functions 이용
+* 상단에 jstl functions를 추가하고 원하는 EL태그 안에서 이용할 수 있다.
+	<a href="${fileName}">${fileName}</a>	--소문자를대문자로 출력만 하고싶은 경우--->	<a href="${fileName}">${fn:toUpperCase(fileName)}</a>
+
+* 특정 글자만 색깔을 다르게 한다던지?
+	<c:if test="${fn:endsWith(fileName, '.zip') }">
+		<c:set var="setStyle" value="font-weight:bold; color:red;"/>
+	</c:if>
+	위와같이 조건을 두고 원하는 곳에 꽂아 쓴다 근데..!!!
+	안된다 .zip파일이 아니라 모든 파일에 적용됨 왜 그럴까?

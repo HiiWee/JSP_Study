@@ -199,7 +199,7 @@
 							<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a></td>
 							<td>${notice.memberId}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${notice.regdate}" /></td>
-							<td>${notice.hit}</td>
+							<td><fmt:formatNumber type="number" pattern=",###" value="${notice.hit}"/></td>
 						</tr>
 						</c:forEach>
 						<%-- <%
