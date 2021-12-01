@@ -34,21 +34,43 @@ public class NoticeService {
 	}
 
 	public int getNoticeCount(String field, String query) {
-
+		String sql = "select * "
+				+ "from (select ROW_NUMBER() over(order by n.regdate desc) rownum, n.* from NOTICE n) n2 "
+				+ "where n2.rownum between ? and ?";
 		return 0;
 	}
 
 //	id값에 대한 공지목록을 반환하는 메소드들
 	public Notice getNotice(int id) {
+		String sql = "select * from notice where id = ?";
 		return null;
 	}
 
 //	페이지내에서 이전 다음 공지 목록 반환
+//  현재 ID에 해당하는 ID로 다음 ID를 구해야함
 	public Notice getNextNotice(int id) {
+		String sql = "select * "
+				+ "from ("
+				+ "    select ROW_NUMBER() over(order by n.regdate) rownum, n.* "
+				+ "    from ( select * "
+				+ "            from notice "
+				+ "            where regdate > (select regdate "
+				+ "                            from notice "
+				+ "                            where id = ?)) n) n2 "
+				+ "where rownum = 1";
 		return null;
 	}
 
 	public Notice getPrevNotice(int id) {
+		String sql = "select * "
+				+ "from ("
+				+ "    select ROW_NUMBER() over(order by n.regdate desc) rownum, n.* "
+				+ "    from ( select * "
+				+ "            from notice "
+				+ "            where regdate < (select regdate "
+				+ "                            from notice "
+				+ "                            where id = 3)) n) n2 "
+				+ "where rownum = 1";
 		return null;
 	}
 

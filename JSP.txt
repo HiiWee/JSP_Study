@@ -681,5 +681,27 @@ ${st.step}       반복되는 인덱스의 증가치(step옵션으로 1씩 증�
 
 
 
+< ------------------------------------------------------------ getNextNotice, getPrevNotice  메소드의 SQL 쿼리 작성하기 ------------------------------------------------------------>
+1. mysql에서.. 다음 게시물 id얻기 위해선 먼저 현재 게시물 전체를 날짜 내림차순 정렬후
+2. 가져온 현재 id로 위의 결과물을 가지고 날짜를 내림차순으로 정렬하고 첫번째 요소를 뽑아오면됨
 
+select * 
+from (
+    select ROW_NUMBER() over(order by n.regdate) rownum, n.* 
+    from ( select * 
+            from notice 
+            where regdate > (select regdate 
+                            from notice 
+                            where id = 3)) n) n2
+where rownum = 1;
 
+반대로 이전 게시물을 구하는 방법은 조금만 변형하면된다
+select * 
+from (
+    select ROW_NUMBER() over(order by n.regdate desc) rownum, n.* 
+    from ( select * 
+            from notice 
+            where regdate < (select regdate 
+                            from notice 
+                            where id = 3)) n) n2
+where rownum = 1;
