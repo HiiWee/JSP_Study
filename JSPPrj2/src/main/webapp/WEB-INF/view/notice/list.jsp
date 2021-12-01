@@ -192,7 +192,7 @@
 					%> --%>
 					
 					<!-- 위 주석처리 코드의 역할을 아래 태그에서 해준다 -->
-					<c:forEach var="notice" items="${list}">
+					<c:forEach var="notice" items="${list}" begin="0" end="3" varStatus="st">
 					<tr>
 						<td>${notice.id}</td>
 						<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a></td>
