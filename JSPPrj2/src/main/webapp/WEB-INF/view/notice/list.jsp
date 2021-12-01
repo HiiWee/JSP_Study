@@ -180,30 +180,30 @@
 					</thead>
 					<tbody>
 					
-					<!-- 자바 코드블록을 없애고 대신할 수 있는 무엇인가 대체 필요 -->
-					
-					<!-- List를 지역변수로 둬야 for each문을 돌릴 수 있다. -->
-					<!-- 지역변수로 두었기 때문에 EL 키워드는 사용할 수 없다 왜? 저장소가 아니므로 -->
-					<!-- EL을 쓰기위해 이 페이지내에서 쓰이는 pageContext에 담음 -->
-					<%-- <% 
-					List<Notice> list = (List<Notice>)request.getAttribute("list");
-					for (Notice notice : list) {
-						pageContext.setAttribute("notice", notice);
-					%> --%>
-					
-					<!-- 위 주석처리 코드의 역할을 아래 태그에서 해준다 -->
-					<c:forEach var="notice" items="${list}" begin="0" end="3">
-					<tr>
-						<td>${notice.id}</td>
-						<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a></td>
-						<td>${notice.memberId}</td>
-						<td>${notice.regdate}</td>
-						<td>${notice.hit}</td>
-					</tr>
-					</c:forEach>
-					<%-- <%
-					}
-					%> --%>				
+						<!-- 자바 코드블록을 없애고 대신할 수 있는 무엇인가 대체 필요 -->
+						
+						<!-- List를 지역변수로 둬야 for each문을 돌릴 수 있다. -->
+						<!-- 지역변수로 두었기 때문에 EL 키워드는 사용할 수 없다 왜? 저장소가 아니므로 -->
+						<!-- EL을 쓰기위해 이 페이지내에서 쓰이는 pageContext에 담음 -->
+						<%-- <% 
+						List<Notice> list = (List<Notice>)request.getAttribute("list");
+						for (Notice notice : list) {
+							pageContext.setAttribute("notice", notice);
+						%> --%>
+						
+						<!-- 위 주석처리 코드의 역할을 아래 태그에서 해준다 -->
+						<c:forEach var="notice" items="${list}" begin="0" end="3">
+						<tr>
+							<td>${notice.id}</td>
+							<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a></td>
+							<td>${notice.memberId}</td>
+							<td>${notice.regdate}</td>
+							<td>${notice.hit}</td>
+						</tr>
+						</c:forEach>
+						<%-- <%
+						}
+						%> --%>				
 					</tbody>
 				</table>
 			</div>
@@ -215,27 +215,37 @@
 
 			<div class="margin-top align-center pager">	
 		
+	<c:set var="page" value="${(param.p == null) ? 1: param.p}"/>
+	<c:set var="startNum" value ="${page - (page - 1) % 5 }"/>
+	<c:set var="lastNum" value ="23"/>
+	
 	<div>
-		
-		
+	
+	<c:if test="${startNum > 1}">
+		<a class="btn btn-prev" href="?p=${startNum - 1}&t=&q=">이전</a>
+	</c:if>
+	
+	<c:if test="${startNum <= 1}">
 		<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
+	</c:if>
 		
 	</div>
 	
-	<c:set var="page" value="${(param.p == null) ? 1: param.p}"/>
-	<c:set var="startNum" value ="${page - (page % 5 - 1) }"/>
-	
 	<ul class="-list- center">
-		<c:forEach var="i" begin="0" end="4">
-											<!-- 스트링쿼리값으로 보내기 위함 -->
+	<c:forEach var="i" begin="0" end="4">
+										<!-- 스트링쿼리값으로 보내기 위함 -->
 		<li><a class="-text- orange bold" href="?p=${i+startNum}&t=&q=" > ${i+startNum} </a></li>
-		</c:forEach>
-				
+	</c:forEach>
 	</ul>
+
 	<div>
-		
-		
-			<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+	<!-- 위의 i의 가장 큰 값보다 하나 더 큰값을 주어야 다음페이지로 넘어가짐 -->
+	<c:if test="${5+startNum <= lastNum}">
+		<a class="btn btn-next" href="?p=${5+startNum}&t=&q=">다음</a>
+	</c:if>
+	<c:if test="${5+startNum > lastNum}">
+		<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+	</c:if>
 		
 	</div>
 	
