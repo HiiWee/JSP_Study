@@ -152,16 +152,18 @@
 			
 			<div class="search-form margin-top first align-right">
 				<h3 class="hidden">공지사항 검색폼</h3>
-				<form class="table-form">
+				<!-- action은 default가 submit한 페이지, method는 default가 get방식 -->
+				<form class="table-form" action="list" method="get">
 					<fieldset>
 						<legend class="hidden">공지사항 검색 필드</legend>
 						<label class="hidden">검색분류</label>
 						<select name="f">
-							<option  value="title">제목</option>
-							<option  value="writerId">작성자</option>
+							<option ${(param.f == "title")? "selected": "" } value="title">제목</option>
+							<option ${(param.f == "memberId")? "selected": "" } value="memberId">작성자</option>
 						</select> 
 						<label class="hidden">검색어</label>
-						<input type="text" name="q" value=""/>
+						<input type="text" name="q" value="${param.q}"/>
+						<!-- 버튼을 누르면 list?f=field&q=INPUT -->
 						<input class="btn btn-search" type="submit" value="검색" />
 					</fieldset>
 				</form>
