@@ -6,6 +6,7 @@
     <!-- JSTL위한 라이브러리 불러오기 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
     
 <!DOCTYPE html>
@@ -211,20 +212,23 @@
 				</table>
 			</div>
 			
+					<!-- 페이지번호 하이라이트시 요긴하게 쓰임 -->
+	<c:set var="page" value="${(empty param.p) ? 1: param.p}"/>
+	<c:set var="startNum" value ="${page - (page - 1) % 5 }"/>
+	<!-- 마지막 번호는 데이터베이스에서 실제 레코드 수를 얻어와야 한다 -->
+	<!-- count/10의 결과를 올림하고 올림한 값에서 .아래의 값은 버리고 정수를 만든다. -->
+	<c:set var="lastNum" value ="${fn:substringBefore(Math.ceil(count/10), '.')}"/>
+
+	
 			<div class="indexer margin-top align-right">
 				<h3 class="hidden">현재 페이지</h3>
 														<!-- p값으로 표현 p 공백, 널이면 1페이지 표기 -->
-				<div><span class="text-orange text-strong">${(empty param.p)? 1 : param.p}</span> / 1 pages</div>
+				<div><span class="text-orange text-strong">${(empty param.p)? 1 : param.p}</span> / ${lastNum} pages</div>
 			</div>
 
 			<div class="margin-top align-center pager">	
-				<!-- 페이지번호 하이라이트시 요긴하게 쓰임 -->
-	<c:set var="page" value="${(empty param.p) ? 1: param.p}"/>
-	<c:set var="startNum" value ="${page - (page - 1) % 5 }"/>
-	<c:set var="lastNum" value ="23"/>
 	
 	<div>
-	
 	<c:if test="${startNum > 1}">
 		<a class="btn btn-prev" href="?p=${startNum - 1}&f=${param.f }&q=${param.q}">이전</a>
 	</c:if>
@@ -237,8 +241,10 @@
 	
 	<ul class="-list- center">
 	<c:forEach var="i" begin="0" end="4">
+	<c:if test="${startNum+i <= lastNum }">
 							<!-- 현재 페이지와 동일한 페이지 목록의 번호는 주황색 처리 -->
 		<li><a class="-text- ${(page == (i+startNum))? 'orange' : ''} bold" href="?p=${i+startNum}&f=${param.f }&q=${param.q}" > ${i+startNum} </a></li>
+	</c:if>
 	</c:forEach>
 	</ul>
 
