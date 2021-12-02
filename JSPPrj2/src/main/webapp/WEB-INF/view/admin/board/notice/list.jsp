@@ -6,6 +6,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
+	<!-- 인코딩 설정 -->
+	<% request.setCharacterEncoding("UTF-8"); %>
+
 <html>
 
 <head>
@@ -26,6 +29,8 @@
 </head>
 
 <body>
+
+	
 	<!-- header 부분 -->
 
 	<header id="header">

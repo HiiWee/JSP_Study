@@ -20,14 +20,15 @@ public class ListController extends HttpServlet{
 		String[] openIds = request.getParameterValues("open-id");
 		String[] delIds = request.getParameterValues("del-id");
 		String cmd = request.getParameter("cmd");
+		System.out.print(cmd);
 		
 		switch (cmd) {
-		case "일괄공개":
+		case "btnPubAll":
 			for (String openId : openIds)
 				System.out.printf("openId : %s\n", openId);
 			break;
 		
-		case "일괄삭제": 
+		case "btnDelAll": 
 			for (String delId : delIds)
 				System.out.printf("delId : %s\n", delId);
 			break;
