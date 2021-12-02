@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hoseok.web.entity.Notice;
+import com.hoseok.web.entity.NoticeView;
 import com.hoseok.web.service.NoticeService;
 
 // 이 페이지에서의 Model은 목록임 따라서 리스트 객체 이용
@@ -53,7 +54,7 @@ public class NoticeListController extends HttpServlet{
 			count = 1;
 		
 		
-		List<Notice> list = service.getNoticeList(field, query, page);
+		List<NoticeView> list = service.getNoticeList(field, query, page);
 	
 		request.setAttribute("list", list);
 		request.setAttribute("count", count);

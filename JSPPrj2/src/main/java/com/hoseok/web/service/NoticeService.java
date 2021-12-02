@@ -11,28 +11,29 @@ import java.util.Date;
 import java.util.List;
 
 import com.hoseok.web.entity.Notice;
+import com.hoseok.web.entity.NoticeView;
 
 public class NoticeService {
 	// 공지 목록을 반환해주는 메소드 목록
 	// 코드 집중화 : 매개인자가 가장 많은 메소드를 구현(나머지 메소드들은 오버로드함
-	public List<Notice> getNoticeList() {
+	public List<NoticeView> getNoticeList() {
 		
 		// 두번째 메소드를 호출하면 스택이 1개 더 쌓임
 		return getNoticeList("title", "", 1);  
 	}
 
-	public List<Notice> getNoticeList(int page) {
+	public List<NoticeView> getNoticeList(int page) {
 		
 		return getNoticeList("title", "", page);
 	}
 
-	public List<Notice> getNoticeList(String field, String query, int page) {
+	public List<NoticeView> getNoticeList(String field, String query, int page) {
 		
-		List<Notice> list = new ArrayList<>();
+		List<NoticeView> list = new ArrayList<>();
 		
 		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
 		String sql = "select * "
-				+ "from (select ROW_NUMBER() over(order by n.regdate desc) rownum, n.* from NOTICE n "
+				+ "from (select ROW_NUMBER() over(order by n.regdate desc) rownum, n.* from NOTICE_VIEW n "
 				+ "where " + field + " like ?) n2 "
 				+ "where n2.rownum between ? and ?";
 				// field를 값을 세팅하듯 ?와 st.setString()을 이용해 값을 넣으면 양쪽에 홑따옴표 입력됨 'TITLE'
@@ -58,19 +59,20 @@ public class NoticeService {
 				int id = rs.getInt("id");
 				String title = rs.getString("title");
 				String memberId = rs.getString("memberId");
-				String content = rs.getString("content");
 				Date regdate = rs.getDate("regdate");
 				int hit = rs.getInt("hit");
 				String files = rs.getString("files");
+				int cmtCount = rs.getInt("cmt_count");
 				
-				Notice notice = new Notice(
+				NoticeView notice = new NoticeView(
 						id,
 						title,
 						memberId,
-						content,
 						regdate,
 						hit,
-						files
+						files,
+						// content, --> 용량문제로 뷰에서 삭제
+						cmtCount
 						);
 				
 				// 목록을 위해 리스트 객체에 담아놓음
