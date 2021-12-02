@@ -199,7 +199,7 @@
 						<c:forEach var="notice" items="${list}" begin="0" end="9">
 						<tr>
 							<td>${notice.id}</td>
-							<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a><span>[${notice.cmtCount}]</span></td>
+							<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a><span style="color:red;">[${notice.cmtCount}]</span></td>
 							<td>${notice.memberId}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${notice.regdate}" /></td>
 							<td><fmt:formatNumber type="number" pattern=",###" value="${notice.hit}"/></td>

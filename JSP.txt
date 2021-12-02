@@ -806,3 +806,15 @@ where rownum = 1;
   > 그러면 NOTICE_VIEW는 새로 추가된 칼럼값이 생감 CMT_CNT 이를위해 Notice entity에 추가해야할까?
   > NOTICE_VIEW를 담을 entity를 만듬 (Notice를 상속을 받는다)
   > 이후 getNoticeList()는 List <Notice>가 아닌 List<NoticeView> 타입으로 변경한다 그에따른 content값은 지워준다
+
+
+
+
+
+
+
+< ------------------------------------------------------------ INDEX 페이지 추가하기 ------------------------------------------------------------>
+* MVC 구현으로 --> controller 구현 및 그에따른 view를 구현한다
+* IndexController 구현하고 --> index.jsp로 forward함
+* Controller의 수가 많아지며 복잡도가 올라감 따라서 패키지로 정렬한다
+	com.hoseok.web.controller > com.hoseok.web.controller.notice에 기존 list, detail 컨트롤러를 넣고 이름을 변경 ->DetailController.java, ListController.java
