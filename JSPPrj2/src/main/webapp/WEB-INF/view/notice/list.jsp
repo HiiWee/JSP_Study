@@ -227,37 +227,37 @@
 			</div>
 
 			<div class="margin-top align-center pager">	
-	
-	<div>
-	<c:if test="${startNum > 1}">
-		<a class="btn btn-prev" href="?p=${startNum - 1}&f=${param.f }&q=${param.q}">이전</a>
-	</c:if>
-	
-	<c:if test="${startNum <= 1}">
-		<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
-	</c:if>
-		
-	</div>
-	
-	<ul class="-list- center">
-	<c:forEach var="i" begin="0" end="4">
-	<c:if test="${startNum+i <= lastNum }">
-							<!-- 현재 페이지와 동일한 페이지 목록의 번호는 주황색 처리 -->
-		<li><a class="-text- ${(page == (i+startNum))? 'orange' : ''} bold" href="?p=${i+startNum}&f=${param.f }&q=${param.q}" > ${i+startNum} </a></li>
-	</c:if>
-	</c:forEach>
-	</ul>
-
-	<div>
-	<!-- 위의 i의 가장 큰 값보다 하나 더 큰값을 주어야 다음페이지로 넘어가짐 -->
-	<c:if test="${5+startNum <= lastNum}">
-		<a class="btn btn-next" href="?p=${5+startNum}&f=&q=">다음</a>
-	</c:if>
-	<c:if test="${5+startNum > lastNum}">
-		<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
-	</c:if>
-		
-	</div>
+			
+				<div>
+				<c:if test="${startNum > 1}">
+					<a class="btn btn-prev" href="?p=${startNum - 1}&f=${param.f }&q=${param.q}">이전</a>
+				</c:if>
+				
+				<c:if test="${startNum <= 1}">
+					<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
+				</c:if>
+					
+				</div>
+				
+				<ul class="-list- center">
+				<c:forEach var="i" begin="0" end="4">
+				<c:if test="${startNum+i <= lastNum }">
+										<!-- 현재 페이지와 동일한 페이지 목록의 번호는 주황색 처리 -->
+					<li><a class="-text- ${(page == (i+startNum))? 'orange' : ''} bold" href="?p=${i+startNum}&f=${param.f }&q=${param.q}" > ${i+startNum} </a></li>
+				</c:if>
+				</c:forEach>
+				</ul>
+			
+				<div>
+				<!-- 위의 i의 가장 큰 값보다 하나 더 큰값을 주어야 다음페이지로 넘어가짐 -->
+				<c:if test="${5+startNum <= lastNum}">
+					<a class="btn btn-next" href="?p=${5+startNum}&f=&q=">다음</a>
+				</c:if>
+				<c:if test="${5+startNum > lastNum}">
+					<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+				</c:if>
+					
+				</div>
 	
 			</div>
 		</main>
