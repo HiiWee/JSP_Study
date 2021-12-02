@@ -818,3 +818,28 @@ where rownum = 1;
 * IndexController 구현하고 --> index.jsp로 forward함
 * Controller의 수가 많아지며 복잡도가 올라감 따라서 패키지로 정렬한다
 	com.hoseok.web.controller > com.hoseok.web.controller.notice에 기존 list, detail 컨트롤러를 넣고 이름을 변경 ->DetailController.java, ListController.java
+
+
+
+
+
+
+
+< ------------------------------------------------------------ Admin 페이지를 위한 서비스 목록 추가하기 ------------------------------------------------------------>
+* 관리자 페이지는 일괄공개, 일괄삭제, 글쓰기 기능이 있음
+	일괄공개 : pubNoticeAll(ids)
+	일괄삭제 : removeNoticeAll(ids)
+* 관리자는 글을 등록할수도 있음 공지등록 요청 : insertNotice(notice)
+* 글 상세 조회시 목록 뿐아니라 수정, 삭제를 할 수 있다. : deleteNotice(id) 수정은 수정페이지로 넘어감
+* 수정페이지에서 수정요청이 들어감 : updateNotice(notice)
+
+* 관리자 외에도 Notice를 이용해 데이터를 보여주는곳이 또 있음 index.jsp에서 최신 공지사항 보여줌 : getNoticeNewestList()
+
+pubNoticeAll(ids)
+removeNoticeAll(ids)
+insertNotice(notice)
+deleteNotice(id)
+updateNotice(notice)
+getNoticeNewestList()
+
+위를 구현함

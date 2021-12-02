@@ -14,20 +14,23 @@ import com.hoseok.web.entity.Notice;
 import com.hoseok.web.entity.NoticeView;
 
 public class NoticeService {
+	/* 사용자가 이용하는 공지사항 페이지 메소드 */	
+	
+	
 	// 공지 목록을 반환해주는 메소드 목록
 	// 코드 집중화 : 매개인자가 가장 많은 메소드를 구현(나머지 메소드들은 오버로드함
-	public List<NoticeView> getNoticeList() {
+	public List<NoticeView> getNoticeViewList() {
 		
 		// 두번째 메소드를 호출하면 스택이 1개 더 쌓임
-		return getNoticeList("title", "", 1);  
+		return getNoticeViewList("title", "", 1);  
 	}
 
-	public List<NoticeView> getNoticeList(int page) {
+	public List<NoticeView> getNoticeViewList(int page) {
 		
-		return getNoticeList("title", "", page);
+		return getNoticeViewList("title", "", page);
 	}
 
-	public List<NoticeView> getNoticeList(String field, String query, int page) {
+	public List<NoticeView> getNoticeViewList(String field, String query, int page) {
 		
 		List<NoticeView> list = new ArrayList<>();
 		
@@ -300,4 +303,33 @@ public class NoticeService {
 		return notice;
 	}
 
+	/*  관리자 기능 메소드 */
+	
+	// 몇개가 공개 되었는지 반환
+	public int pubNoticeAll(int[] ids) {
+		
+		return 0;
+	}
+	// 몇개가 삭제 됐는지 반환
+ 	public int removeNoticeAll(int[] ids) {
+ 		return 0;
+ 	}
+ 	// 행이 삽입됐는지 반환 (영향을 준 레코드 개수)
+ 	public int insertNotice(Notice notice) {
+ 		return 0;
+ 	}
+ 	// 행이 삭제됐는지 반환 (영향을 준 레코드 개수)
+	public int deleteNotice(int id) {
+		return 0;
+		
+	}
+	// 행이 업데이트 됐는지 (영향을 준 레코드 개수)
+	public int updateNotice(Notice notice) {
+		return 0;
+	}
+	// 새로운 공지사항을 반환해야하므로 List 반환
+	List<Notice> getNoticeNewestList() {
+		return null;
+	}
+	
 }
