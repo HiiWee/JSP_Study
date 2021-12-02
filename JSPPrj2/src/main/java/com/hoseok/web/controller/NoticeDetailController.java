@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hoseok.web.entity.Notice;
+import com.hoseok.web.service.NoticeService;
 
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet {
@@ -28,63 +29,9 @@ public class NoticeDetailController extends HttpServlet {
 		// MVC MODEL 1 방식으로 변환하기
 
 		int id = Integer.parseInt(request.getParameter("id")); 
-
-		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
-		String sql = "select * from notice where ID = ?";
-
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, id);
-
-			ResultSet rs = st.executeQuery();
-
-			rs.next();
-
-			// Model : view단에 넘겨줘야함 어떻게 넘길까?
-			// 2가지 문제가 있다.
-			// 1. detail.jsp로 흐름이 전이되어야 하는데 흐름을 전달할 수 있는 방법이 있나? 
-			//(list.jsp가 반드시 선행되어 실행해야함) Controller에서 detail.jsp가 실행되어야함 반드시!!
-			String title = rs.getString("title");
-			String memberId = rs.getString("memberId");
-			String content = rs.getString("content");
-			Date regdate = rs.getDate("regdate");
-			int hit = rs.getInt("hit");
-			String files = rs.getString("files");
-
-			Notice notice = new Notice(
-						id,
-						title,
-						memberId,
-						content,
-						regdate,
-						hit,
-						files
-					);
-			
-			request.setAttribute("notice", notice);
-			//forward하기전에 Model값들 저장함
-			/*
-			request.setAttribute("title", title);
-			request.setAttribute("regdate", regdate);
-			request.setAttribute("memberId", memberId);
-			request.setAttribute("hit", hit);
-			request.setAttribute("files", files);
-			request.setAttribute("content", content);
-			*/
-			rs.close();
-			st.close();
-			con.close();
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		NoticeService service = new NoticeService();
+		Notice notice = service.getNotice(id);
+		request.setAttribute("notice", notice);
 		
 		// Servlet 에서 Servlet으로 전이하는 방법
 		// 1. redirect : 서블릿 호출시 여기서 아예 다른페이지로 가버리는 방법 (로그인안하고 접근 시, 게시물 등록시 목록페이지로 전이)
