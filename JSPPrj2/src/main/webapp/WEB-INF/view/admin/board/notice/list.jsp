@@ -157,61 +157,66 @@
 						</fieldset>
 					</form>
 				</div>
-
-				<div class="notice margin-top">
-					<h3 class="hidden">공지사항 목록</h3>
-					<table class="table">
-						<thead>
+				
+				
+				<form action="list" method="post">
+					<div class="notice margin-top">
+						<h3 class="hidden">공지사항 목록</h3>
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="w60">번호</th>
+									<th class="expand">제목</th>
+									<th class="w100">작성자</th>
+									<th class="w100">작성일</th>
+									<th class="w60">조회수</th>
+									<th class="w40">공개</th>
+									<th class="w40">삭제</th>
+								</tr>
+							</thead>
+							<tbody>
+	
+	
+							<c:forEach var="notice" items="${list}" begin="0" end="9">
 							<tr>
-								<th class="w60">번호</th>
-								<th class="expand">제목</th>
-								<th class="w100">작성자</th>
-								<th class="w100">작성일</th>
-								<th class="w60">조회수</th>
-								<th class="w40">공개</th>
-								<th class="w40">삭제</th>
+								<td>${notice.id}</td>
+								<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a><span style="color:red;">[${notice.cmtCount}]</span></td>
+								<td>${notice.memberId}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${notice.regdate}" /></td>
+								<td><fmt:formatNumber type="number" pattern=",###" value="${notice.hit}"/></td>
+								<!-- 체크 박스에 공개하고자 하는 게시물의 값들을 전달 value="" -->
+								<!-- summit button을 눌러야지 전달됨 (따라서 포함되는 태그 전부에 form태그로 묶어야함) -->
+								<td><input type="checkbox" name="open-id" value="${notice.id }"></td>
+								<td><input type="checkbox" name="del-id" value="${notice.id }"></td>
 							</tr>
-						</thead>
-						<tbody>
-
-
-						<c:forEach var="notice" items="${list}" begin="0" end="9">
-						<tr>
-							<td>${notice.id}</td>
-							<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a><span style="color:red;">[${notice.cmtCount}]</span></td>
-							<td>${notice.memberId}</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${notice.regdate}" /></td>
-							<td><fmt:formatNumber type="number" pattern=",###" value="${notice.hit}"/></td>
-							<td><input type="checkbox" name="open"></td>
-							<td><input type="checkbox" name="del"></td>
-						</tr>
-						</c:forEach>
-
-
-
-						</tbody>
-					</table>
-				</div>
-
-				<!-- 페이지번호 하이라이트시 요긴하게 쓰임 -->
-	<c:set var="page" value="${(empty param.p) ? 1: param.p}"/>
-	<c:set var="startNum" value ="${page - (page - 1) % 5 }"/>
-	<!-- 마지막 번호는 데이터베이스에서 실제 레코드 수를 얻어와야 한다 -->
-	<!-- count/10의 결과를 올림하고 올림한 값에서 .아래의 값은 버리고 정수를 만든다. -->
-	<c:set var="lastNum" value ="${fn:substringBefore(Math.ceil(count/10), '.')}"/>
-
-
-				<div class="indexer margin-top align-right">
-					<h3 class="hidden">현재 페이지</h3>
-															<!-- p값으로 표현 p 공백, 널이면 1페이지 표기 -->
-					<div><span class="text-orange text-strong">${(empty param.p)? 1 : param.p}</span> / ${lastNum} pages</div>
-				</div>
-
-				<div class="text-align-right margin-top">
-					<input type="submit" class="btn-text btn-default" value="일괄공개">
-					<input type="submit" class="btn-text btn-default" value="일괄삭제">
-					<a class="btn-text btn-default" href="reg.html">글쓰기</a>				
-				</div>
+							</c:forEach>
+	
+	
+	
+							</tbody>
+						</table>
+					</div>
+	
+					<!-- 페이지번호 하이라이트시 요긴하게 쓰임 -->
+		<c:set var="page" value="${(empty param.p) ? 1: param.p}"/>
+		<c:set var="startNum" value ="${page - (page - 1) % 5 }"/>
+		<!-- 마지막 번호는 데이터베이스에서 실제 레코드 수를 얻어와야 한다 -->
+		<!-- count/10의 결과를 올림하고 올림한 값에서 .아래의 값은 버리고 정수를 만든다. -->
+		<c:set var="lastNum" value ="${fn:substringBefore(Math.ceil(count/10), '.')}"/>
+	
+	
+					<div class="indexer margin-top align-right">
+						<h3 class="hidden">현재 페이지</h3>
+																<!-- p값으로 표현 p 공백, 널이면 1페이지 표기 -->
+						<div><span class="text-orange text-strong">${(empty param.p)? 1 : param.p}</span> / ${lastNum} pages</div>
+					</div>
+	
+					<div class="text-align-right margin-top">
+						<input type="submit" class="btn-text btn-default" value="일괄공개">
+						<input type="submit" class="btn-text btn-default" value="일괄삭제">
+						<a class="btn-text btn-default" href="reg.html">글쓰기</a>				
+					</div>
+				</form>
 
 				<div class="margin-top align-center pager">	
 				

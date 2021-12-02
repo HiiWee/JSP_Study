@@ -1,13 +1,6 @@
 package com.hoseok.web.controller.admin.notice;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,13 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hoseok.web.entity.Notice;
 import com.hoseok.web.entity.NoticeView;
 import com.hoseok.web.service.NoticeService;
 
 // 이 페이지에서의 Model은 목록임 따라서 리스트 객체 이용
 @WebServlet("/admin/notice/list")
 public class ListController extends HttpServlet{
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String[] openIds = request.getParameterValues("open-id");
+		String[] delIds = request.getParameterValues("del-id");
+		
+		for (String openId : openIds)
+			System.out.printf("openId : %s\n", openId);
+
+		for (String delId : delIds)
+			System.out.printf("delId : %s\n", delId);
+	
+	}
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//list?f=field&q=query 가 전달옴
