@@ -24,6 +24,7 @@ public class ListController extends HttpServlet{
 		String cmd = request.getParameter("cmd");
 		// 공개목록위한 id값 받아오고 배열로 파싱
 		String ids_ = request.getParameter("ids");
+		// 초기 빈공백이 배열화 되는것을 막기위해 트림으로 양쪽 공백을 지우고 파싱
 		String[] ids = ids_.trim().split(" ");		// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 		
 		NoticeService service = new NoticeService();
@@ -40,6 +41,8 @@ public class ListController extends HttpServlet{
 			System.out.println(Arrays.asList(ids));
 			System.out.println(oids);
 			System.out.println(cids);
+			// Transaction 처리
+			service.pubNoticeAll(oids, cids);
 			break;
 		
 		case "일괄삭제": 

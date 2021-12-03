@@ -383,8 +383,19 @@ public class NoticeService {
 
 	/*  관리자 기능 메소드 */
 	
-	// 몇개가 공개 되었는지 반환
-	public int pubNoticeAll(int[] ids) {
+	// 오버로드함수 : 유연한 사용을 위하여
+	// 몇개가 공개 되었는지 반환 정수 배열 매개인자
+	public int pubNoticeAll(int[] oids, int[] cids) {
+		
+		return 0;
+	}
+	// 몇개가 공개 되었는지 반환 리스트 타입 매개인자
+	public int pubNoticeAll(List<String> oids, List<String> cids) {
+		
+		return 0;
+	}
+	// 몇개가 공개 되었는지 반환 CSV(콤마로 나뉜 값들)	44,55,33,44,22 
+	public int pubNoticeAll(String oidsCSV, String cidsCSV) {
 		
 		return 0;
 	}
