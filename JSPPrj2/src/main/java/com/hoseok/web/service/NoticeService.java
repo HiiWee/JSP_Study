@@ -65,6 +65,7 @@ public class NoticeService {
 				Date regdate = rs.getDate("regdate");
 				int hit = rs.getInt("hit");
 				String files = rs.getString("files");
+				boolean pub = rs.getBoolean("pub");
 				int cmtCount = rs.getInt("cmt_count");
 				
 				NoticeView notice = new NoticeView(
@@ -74,6 +75,7 @@ public class NoticeService {
 						regdate,
 						hit,
 						files,
+						pub,
 						// content, --> 용량문제로 뷰에서 삭제
 						cmtCount
 						);
@@ -160,6 +162,7 @@ public class NoticeService {
 				Date regdate = rs.getDate("regdate");
 				int hit = rs.getInt("hit");
 				String files = rs.getString("files");
+				boolean pub = rs.getBoolean("pub");
 				
 				notice = new Notice(
 						nid,
@@ -168,7 +171,8 @@ public class NoticeService {
 						content,
 						regdate,
 						hit,
-						files
+						files,
+						pub
 						);
 			}
 			
@@ -218,6 +222,8 @@ public class NoticeService {
 				Date regdate = rs.getDate("regdate");
 				int hit = rs.getInt("hit");
 				String files = rs.getString("files");
+				boolean pub = rs.getBoolean("pub");
+
 				
 				notice = new Notice(
 						nid,
@@ -226,7 +232,8 @@ public class NoticeService {
 						content,
 						regdate,
 						hit,
-						files
+						files,
+						pub
 						);
 				
 			}
@@ -277,6 +284,8 @@ public class NoticeService {
 				Date regdate = rs.getDate("regdate");
 				int hit = rs.getInt("hit");
 				String files = rs.getString("files");
+				boolean pub = rs.getBoolean("pub");
+
 				
 				notice = new Notice(
 						nid,
@@ -285,7 +294,8 @@ public class NoticeService {
 						content,
 						regdate,
 						hit,
-						files
+						files,
+						pub
 						);
 				
 			}

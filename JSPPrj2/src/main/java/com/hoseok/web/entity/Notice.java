@@ -20,12 +20,15 @@ public class Notice {
 	private Date regdate;
 	private int hit;
 	private String files;
-	
+	private boolean pub;
 	
 	public Notice() {
 		
 	}
-	public Notice(int id, String title, String memberId, String content, Date regdate, int hit, String files) {
+
+	
+	public Notice(int id, String title, String memberId, String content, Date regdate, int hit, String files,
+			boolean pub) {
 		this.id = id;
 		this.title = title;
 		this.memberId = memberId;
@@ -33,8 +36,18 @@ public class Notice {
 		this.regdate = regdate;
 		this.hit = hit;
 		this.files = files;
+		this.pub = pub;
 	}
-	
+
+
+	public boolean getPub() {
+		return pub;
+	}
+
+	public void setPub(boolean pub) {
+		this.pub = pub;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -77,12 +90,14 @@ public class Notice {
 	public void setFiles(String files) {
 		this.files = files;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Notice [id=" + id + ", title=" + title + ", memberId=" + memberId + ", content=" + content
-				+ ", regdate=" + regdate + ", hit=" + hit + ", files=" + files + "]";
+				+ ", regdate=" + regdate + ", hit=" + hit + ", files=" + files + ", pub=" + pub + "]";
 	}
+	
+	
 
 	
 }
