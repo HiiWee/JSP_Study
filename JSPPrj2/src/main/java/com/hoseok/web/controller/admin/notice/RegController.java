@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hoseok.web.entity.Notice;
 import com.hoseok.web.service.NoticeService;
+
+// 파일 경로, 사이즈, 한번에 보내는 사이즈, 총 사이즈 설정
+@MultipartConfig (
+	//location="/tmp",		
+	fileSizeThreshold=1024*1024,
+	maxFileSize=1024*1024*50,	
+	maxRequestSize=1024*1024*50*5
+)
 
 @WebServlet("/admin/board/notice/reg")
 public class RegController extends HttpServlet {
