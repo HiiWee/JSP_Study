@@ -32,20 +32,25 @@ public class ListController extends HttpServlet{
 		
 		switch (cmd) {
 		case "일괄공개":
+			if (openIds == null) {
+				System.out.println("아무 값도 체크하지 않았습니다.");
+				break;
+			}
 			// openIds와 ids를 비교하며 체크된것과 안된것들을 비교한다.
 			// 배열을 리스트 형태로 바꿀때 이용한다, openIds, ids 둘다 리스트형태로 만들고 빼기연산
 			List<String> oids = Arrays.asList(openIds);
 			// ids를 리스트로만들고 oids를 지워라 하지만 정적길이 리스트 모양이므로 새로운 객체에 담아 쓴다.
 			List<String> cids = new ArrayList<>(Arrays.asList(ids));
 			cids.removeAll(oids);
-			System.out.println(Arrays.asList(ids));
-			System.out.println(oids);
-			System.out.println(cids);
 			// Transaction 처리
 			service.pubNoticeAll(oids, cids);
 			break;
 		
 		case "일괄삭제": 
+			if (delIds == null) {
+				System.out.println("아무 값도 체크하지 않았습니다.");
+				break;
+			}
 			int[] newDelIds = new int[delIds.length];
 			
 			for (int i = 0; i < delIds.length; i++)

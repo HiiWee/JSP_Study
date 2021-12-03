@@ -399,6 +399,7 @@ public class NoticeService {
 		
 		return pubNoticeAll(oidsList, cidsList);
 	}
+	
 	// 몇개가 공개 되었는지 반환 리스트 타입 매개인자
 	public int pubNoticeAll(List<String> oids, List<String> cids) {
 		// 첫번째는 구분자, 두번째는 가변인자를 계속넣을수있음 > 문자열 하나로 합쳐줌
@@ -407,11 +408,38 @@ public class NoticeService {
 		
 		return pubNoticeAll(oidsCSV, cidsCSV);
 	}
+	
 	// 몇개가 공개 되었는지 반환 CSV(콤마로 나뉜 값들)	44,55,33,44,22 
 	public int pubNoticeAll(String oidsCSV, String cidsCSV) {
-		
-		return 0;
+		int result = 0;
+		String sqlOpen = String.format("update notice set pub=1 where id in (%s)", oidsCSV);
+		String sqlClose = String.format("update notice set pub=0 where id in (%s)", cidsCSV);
+
+		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
+			Statement stOpen = con.createStatement();
+			result += stOpen.executeUpdate(sqlOpen);
+
+			Statement stClose = con.createStatement();
+			result += stClose.executeUpdate(sqlClose);
+			
+			stOpen.close();
+			stClose.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
+	
+	
 	// 몇개가 삭제 됐는지 반환
  	public int removeNoticeAll(int[] ids) {
  		int result = 0;
