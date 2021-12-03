@@ -13,27 +13,30 @@ import com.hoseok.web.entity.NoticeView;
 import com.hoseok.web.service.NoticeService;
 
 // 이 페이지에서의 Model은 목록임 따라서 리스트 객체 이용
-@WebServlet("/admin/notice/list")
+@WebServlet("/admin/board/notice/list")
 public class ListController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] openIds = request.getParameterValues("open-id");
 		String[] delIds = request.getParameterValues("del-id");
 		String cmd = request.getParameter("cmd");
-		System.out.print(cmd);
 		
 		switch (cmd) {
-		case "btnPubAll":
+		case "일괄공개":
 			for (String openId : openIds)
 				System.out.printf("openId : %s\n", openId);
 			break;
 		
-		case "btnDelAll": 
-			for (String delId : delIds)
-				System.out.printf("delId : %s\n", delId);
+		case "일괄삭제": 
+			NoticeService service = new NoticeService();
+			int[] ids = new int[delIds.length];
+			for (int i = 0; i < delIds.length; i++)
+				ids[i] = Integer.parseInt(delIds[i]);
+			int result = service.removeNoticeAll(ids);
 			break;
-		
 		}
+		// 클라이언트가 아닌 서버쪽에서 서버를 요청하듯이 이용
+		response.sendRedirect("list");
 
 	
 	}

@@ -312,7 +312,40 @@ public class NoticeService {
 	}
 	// 몇개가 삭제 됐는지 반환
  	public int removeNoticeAll(int[] ids) {
- 		return 0;
+ 		int result = 0;
+		String params = "";
+		
+		// params 변수에 id를 담음
+		for (int i = 0; i < ids.length; i++) {
+			params += ids;
+			// ( 1, 2, 3, ) < 이렇게 들어가면 SQL문법오류 이므로 조건처리 
+			if (i + 1 < ids.length)
+				params += ",";
+		}
+		
+ 		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
+		String sql = "delete * from noticec where id in (" + params + ")";
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
+			Statement st = con.createStatement();
+			
+			
+			result = st.executeUpdate(sql);
+			
+			
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 		
+ 		return result;
  	}
  	// 행이 삽입됐는지 반환 (영향을 준 레코드 개수)
  	public int insertNotice(Notice notice) {
