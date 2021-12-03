@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -46,26 +47,41 @@ public class RegController extends HttpServlet {
 		
 		
 		/* 파일업로드 과정 */
-		Part filePart = request.getPart("file");
-		// 파일명 가져옴 
-		String fileName = filePart.getSubmittedFileName();
-		InputStream fis = filePart.getInputStream();
-		
-		String realPath = request.getServletContext().getRealPath("/upload");
-		System.out.println(realPath);
-		String filePath = realPath + File.separator + fileName;
-		FileOutputStream fos = new FileOutputStream(filePath);
-		
-		byte[] buf = new byte[1024];
-		int size = 0;
-		// 읽다가 사이즈값 반환 다 읽으면 -1
-		while ((size = fis.read(buf))!= -1) {
-			fos.write(buf, 0, size);
+		// 여러파일 가져오기(컬렉션통채로)
+		Collection<Part> parts = request.getParts();
+		StringBuilder builder = new StringBuilder();
+		for (Part p : parts) {
+			if (!p.getName().equals("file")) continue;		// 파일이 아니면 pass
+			// 파일명 가져옴 
+
+			Part filePart = p;
+			String fileName = filePart.getSubmittedFileName();
+			// 파일명 업로드 위해 builder에 붙임
+			builder.append(fileName);
+			builder.append(",");
+			InputStream fis = filePart.getInputStream();
+			
+			String realPath = request.getServletContext().getRealPath("/upload");
+			System.out.println(realPath);
+			String filePath = realPath + File.separator + fileName;
+			FileOutputStream fos = new FileOutputStream(filePath);
+			
+			byte[] buf = new byte[1024];
+			int size = 0;
+			// 읽다가 사이즈값 반환 다 읽으면 -1
+			while ((size = fis.read(buf))!= -1) {
+				fos.write(buf, 0, size);
+			}
+			
+			fos.close();
+			fis.close();
+			/* 파일 업로드 끝 */
 		}
+		// 파일명 목록에서 마지막 쉼표 뺴주기
+		builder.delete(builder.length() - 1, builder.length());
 		
-		fos.close();
-		fis.close();
-		/* 파일 업로드 끝 */
+		
+		
 		
 		// 체크박스가 체크됐으면 true값 넣음
 		boolean pub = false;
@@ -79,6 +95,7 @@ public class RegController extends HttpServlet {
 		notice.setPub(pub);
 		// 로그인 처리를 구현하게 되면 인증을 처리한 사용자의 아이디로 바뀜
 		notice.setMemberId("hoseok");
+		notice.setFiles(builder.toString());
 		
 		NoticeService service = new NoticeService();
 		service.insertNotice(notice);

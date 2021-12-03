@@ -1019,7 +1019,7 @@ getNoticeNewestList()
 * input type이 file이고 name="file"이면 우선 multipart에 있는 content를 얻어야함 --> Part filePart = request.getPart("file"); (getParts()는 part를 전체 컬렉션으로 받아옴)
 * getPart("file")는 바이너리라고 하는 컨텐트를 넘겨주고 있음 
 * 바이너리를 받는 방법은
-	> filePart.getInputStream(); 	> filePart로 부터 바이너리 값을 받아옴 inputStream만 가지고 있으면 전달받은 파일을 저장할 수 있음 경로를 모름
+	> InputStream fis = filePart.getInputStream(); 	> filePart로 부터 바이너리 값을 받아옴 inputStream만 가지고 있으면 전달받은 파일을 저장할 수 있음 하지만 경로를 모름
 	> web root에 하고싶지만 상대경로는 불가하고 절대경로만 가능하다(상대경로를 절대경로로 바꿔줄 수 있나?)
 	> /upload의 절대경로를 실행하고있는 중 동적으로 알 수 있을까?
 	> String realPath = request.getServletContext().getRealPath("/upload");	> 상대경로를 넘겨주면 시스템의 실제 물리경로를 넘겨줌
@@ -1035,7 +1035,7 @@ getNoticeNewestList()
 
 < ------------------------------------------------------------ 단일 파일 업로드 ------------------------------------------------------------>
 * realPath를 구했으니 실제 파일을 저장해보자 --> inputStream을 통해서 쉽게 얻어서 저장(console inputstream과 동일)
-	>InputStream fis = filePart.getInputStream(); --> 파일을 입력받음
+	> InputStream fis = filePart.getInputStream(); --> 파일을 입력받음
 	> 데이터를 읽을때 여러문자 -> Scanner, 단순한 바이트 단위면 -> read()면 충분(1바이트값 얻음) 다만 반환을 정수형을 반환함 왜? read()하다 읽을게 없으면 다 읽었다고 -1 반환
 	> 데이터만 쓰고 싶으면 데이터를 바이트로 형변환해도됨
 
@@ -1058,3 +1058,30 @@ getNoticeNewestList()
 		fos.write(buf);
 	}
 	> 하지만 마지막에 불러올때 기존 buf에 있던값이 겹치므로 offset과 length를 지정	>> fos.write(buf, 0, size); >> 0번쨰부터 읽어온 size까지
+
+
+
+
+
+
+< ------------------------------------------------------------ 다중 파일 업로드 ------------------------------------------------------------>
+* 다중파일은 차이가 크지 않다. 
+* 일단 View에 입력상자 하나 더 만들기 -> name값은 다르게하기보단 그냥 배열로 받아오기 (같은이름)
+* Collection<Part> parts = request.getParts();
+	for (Part p : parts) {
+		if (!p.getName().equals("file")) continue;		// 파일이 아니면 pass
+* 기존의 파일시스템 닫는곳까지  for문으로 감싸줌
+
+* 이제 실제 db에 업로드 해보자
+	StringBuilder builder = new StringBuilder(); 를 생성
+	
+	이후 builder.append(fileName);
+	builder.append(",");
+	마지막에는 , 를 빼야하니까 for문 벗어나서 ,하나 삭제하면 끝에는 안붙음
+
+	builder.delete(3,4); >> 주의해야함	"abcde"면 3만지움 4는 포함안됨 즉 d만 지워짐
+	따라서
+	builder.delete(builder.length() - 1, builder.length());
+
+* 이후 setFiles(builder.toString());으로 파일 저장
+* 하지만 NoticeService에 insertNotice() 메소드에 files 가 빠져있다.
