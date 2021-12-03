@@ -52,8 +52,9 @@ public class RegController extends HttpServlet {
 		StringBuilder builder = new StringBuilder();
 		for (Part p : parts) {
 			if (!p.getName().equals("file")) continue;		// 파일이 아니면 pass
+			if (p.getSize() == 0) continue;
+			
 			// 파일명 가져옴 
-
 			Part filePart = p;
 			String fileName = filePart.getSubmittedFileName();
 			// 파일명 업로드 위해 builder에 붙임
@@ -63,6 +64,13 @@ public class RegController extends HttpServlet {
 			
 			String realPath = request.getServletContext().getRealPath("/upload");
 			System.out.println(realPath);
+			
+			// 경로를 만듬 : File path는 업로드라는 디렉토리가 실제 물리적으로 얻어졌을때 물리적인 경로에 실제로 있는지 알아보는 기능이 있다.
+			File path = new File(realPath);
+			// 경로가 존재하는지 확인하고 없으면 만듬 > mkdir()은 경로를 만들고, mkdirs()는 부모 경로가 없으면 그것도 같이 만들어줌
+			if (!path.exists())
+				path.mkdir();
+			
 			String filePath = realPath + File.separator + fileName;
 			FileOutputStream fos = new FileOutputStream(filePath);
 			

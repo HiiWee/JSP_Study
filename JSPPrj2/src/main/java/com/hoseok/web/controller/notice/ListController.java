@@ -45,8 +45,8 @@ public class ListController extends HttpServlet{
 		if (count == 0)
 			count = 1;
 		
-		
-		List<NoticeView> list = service.getNoticeViewList(field, query, page);
+		// 공개된 리스트만 보기위해 설정
+		List<NoticeView> list = service.getNoticeViewPubList(field, query, page);
 	
 		request.setAttribute("list", list);
 		request.setAttribute("count", count);

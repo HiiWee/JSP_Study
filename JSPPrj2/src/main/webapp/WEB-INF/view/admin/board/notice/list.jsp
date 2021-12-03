@@ -183,6 +183,11 @@
 	
 	
 							<c:forEach var="notice" items="${list}" begin="0" end="9">
+								<!-- 반복문을 돌면서 pub이 true인경우 checked 옵션을 넣어 보이게함 -->
+								<c:set var="open" value=""/>
+								<c:if test="${notice.pub == true}">
+									<c:set var="open" value="checked"/>
+								</c:if>
 							<tr>
 								<td>${notice.id}</td>
 								<td class="title indent text-align-left"><a href="detail?id=${notice.id}">${notice.title}</a><span style="color:red;">[${notice.cmtCount}]</span></td>
@@ -191,12 +196,11 @@
 								<td><fmt:formatNumber type="number" pattern=",###" value="${notice.hit}"/></td>
 								<!-- 체크 박스에 공개하고자 하는 게시물의 값들을 전달 value="" -->
 								<!-- summit button을 눌러야지 전달됨 (따라서 포함되는 태그 전부에 form태그로 묶어야함) -->
-								<td><input type="checkbox" name="open-id" value="${notice.id }"></td>
+								
+								<td><input type="checkbox" name="open-id" ${open } value="${notice.id }"></td>
 								<td><input type="checkbox" name="del-id" value="${notice.id }"></td>
 							</tr>
 							</c:forEach>
-	
-	
 	
 							</tbody>
 						</table>
