@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.hoseok.web.entity.Notice;
 import com.hoseok.web.service.NoticeService;
@@ -20,7 +21,6 @@ import com.hoseok.web.service.NoticeService;
 	maxFileSize=1024*1024*50,	
 	maxRequestSize=1024*1024*50*5
 )
-
 @WebServlet("/admin/board/notice/reg")
 public class RegController extends HttpServlet {
 	@Override
@@ -41,10 +41,16 @@ public class RegController extends HttpServlet {
 		String content = request.getParameter("content");
 		String isOpen = request.getParameter("open");
 		
+		Part filePart = request.getPart("file");
+		filePart.getInputStream();
+		
+		String realPath = request.getServletContext().getRealPath("/upload");
+		System.out.println(realPath);
+		
 		// 체크박스가 체크됐으면 true값 넣음
 		boolean pub = false;
 		if (isOpen != null)
-			pub = true;
+			pub = true;	
 		
 		// Notice에 데이터 포장
 		Notice notice = new Notice();
