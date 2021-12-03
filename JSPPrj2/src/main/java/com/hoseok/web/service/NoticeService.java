@@ -362,7 +362,7 @@ public class NoticeService {
  		int result = 0;
 		
  		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
-		String sql = "insert into notice(title, content, memberId, pub) values(?, ?, ?, ?)";
+		String sql = "insert into notice(title, content, memberId, files, pub) values(?, ?, ?, ?, ?)";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -371,7 +371,8 @@ public class NoticeService {
 			st.setString(1, notice.getTitle());
 			st.setString(2, notice.getContent());
 			st.setString(3, notice.getMemberId());
-			st.setBoolean(4, notice.getPub());
+			st.setString(4, notice.getFiles());
+			st.setBoolean(5, notice.getPub());
 			
 			result = st.executeUpdate();
 			

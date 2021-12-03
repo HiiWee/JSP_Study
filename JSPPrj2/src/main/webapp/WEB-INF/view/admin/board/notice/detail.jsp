@@ -181,7 +181,7 @@
 											<c:set var="setStyle" value="font-weight:bold; color:red;"/>
 										</c:if>
 									
-										<a href="${fileName}" style="${setStyle}">${fn:toUpperCase(fileName)}</a>
+										<a download href="/upload/${fileName}" style="${setStyle}">${fn:toUpperCase(fileName)}</a>
 										<!-- 조건문 -->
 										<c:if test="${!st.last}">
 											/

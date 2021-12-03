@@ -1085,3 +1085,19 @@ getNoticeNewestList()
 
 * 이후 setFiles(builder.toString());으로 파일 저장
 * 하지만 NoticeService에 insertNotice() 메소드에 files 가 빠져있다.
+
+
+
+
+
+
+
+< ------------------------------------------------------------ 업로드 된 파일 사용하기 ------------------------------------------------------------>
+* NoticeService에 insertNotice() files 꽂아넣기
+* 그리고 다시 글쓰기를하고 사진을 클릭하면 -> 404오류!
+* detail.jsp 를 보면
+	>  <a href="${fileName}" style="${setStyle}">${fn:toUpperCase(fileName)}</a>
+	> 하이퍼링크에 파일이름이 빠져있다. > 절대경로로 /upload뒤에 파일명을 붙인다
+	> 하지만 또 이상함.. 첨부파일을 다운로드 해야하는데 바로 열려버림..
+	> <a download href="/upload/${fileName}" style="${setStyle}">${fn:toUpperCase(fileName)}</a>
+	> 요렇게 해주면 다운로드됨 content 올리고싶으면 > html태그 직접 ㄱ
