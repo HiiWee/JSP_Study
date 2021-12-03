@@ -28,13 +28,21 @@ public class RegController extends HttpServlet {
 		String content = request.getParameter("content");
 		String isOpen = request.getParameter("open");
 		
+		// 체크박스가 체크됐으면 true값 넣음
+		boolean pub = false;
+		if (isOpen != null)
+			pub = true;
+		
 		// Notice에 데이터 포장
 		Notice notice = new Notice();
 		notice.setTitle(title);
 		notice.setContent(content);
-		// isOpen 컬럼을 추가해야하므로 수정이 꽤 많아짐 먼저 entity에 컬럼 변수 추가..
+		notice.setPub(pub);
+		// 로그인 처리를 구현하게 되면 인증을 처리한 사용자의 아이디로 바뀜
+		notice.setMemberId("hoseok");
 		
 		NoticeService service = new NoticeService();
+		service.insertNotice(notice);
 		
 		// TODO JAVADOCS: 클라이언트로 전송되는 응답의 문자 인코딩(MIME 문자 집합)을 설정
 		response.setCharacterEncoding("UTF-8");
@@ -48,5 +56,8 @@ public class RegController extends HttpServlet {
 		out.printf(title);
 		out.printf(content);
 		out.printf(isOpen);
+		
+		// 경로지정안하고 호출하면 자신의 url에 마지막에 list로 바귐 (reg -> list)
+		response.sendRedirect("list");
 	}
 }

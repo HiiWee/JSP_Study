@@ -359,7 +359,34 @@ public class NoticeService {
  	}
  	// 행이 삽입됐는지 반환 (영향을 준 레코드 개수)
  	public int insertNotice(Notice notice) {
- 		return 0;
+ 		int result = 0;
+		
+ 		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
+		String sql = "insert into notice(title, content, memberId, pub) values(?, ?, ?, ?)";
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, "hoseok", "!dlghtjr4948");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, notice.getTitle());
+			st.setString(2, notice.getContent());
+			st.setString(3, notice.getMemberId());
+			st.setBoolean(4, notice.getPub());
+			
+			result = st.executeUpdate();
+			
+			
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 		
+ 		return result;
  	}
  	// 행이 삭제됐는지 반환 (영향을 준 레코드 개수)
 	public int deleteNotice(int id) {
