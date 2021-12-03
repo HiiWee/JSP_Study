@@ -221,6 +221,14 @@
 					</div>
 	
 					<div class="text-align-right margin-top">
+					<!-- 반복하게 될 놈으로 임시변수 하나 씀 -->
+					<c:set var="ids" value=""/>
+					<!-- ID 나열위해 반복문 이용 -->
+					<c:forEach var="notice" items="${list}">
+						<c:set var="ids" value="${ids} ${notice.id}"/>
+					</c:forEach>
+					<!-- 같이 전달 될 수 있는 ID 숨겨놓음 -->
+						<input type="text" name="ids" value="${ids}"/>
 						<input type="submit" class="btn-text btn-default" name="cmd" value="일괄공개">
 						<input type="submit" class="btn-text btn-default" name="cmd" value="일괄삭제">
 						<a class="btn-text btn-default" href="reg">글쓰기</a>				

@@ -17,21 +17,23 @@ import com.hoseok.web.service.NoticeService;
 public class ListController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] openIds = request.getParameterValues("open-id");
+		String[] openIds = request.getParameterValues("open-id"); // 3, 5, 8
 		String[] delIds = request.getParameterValues("del-id");
 		String cmd = request.getParameter("cmd");
+		// 공개목록위한 id값 받아오고 배열로 파싱
+		String ids_ = request.getParameter("ids");
+		String[] ids = ids_.split(" ");		// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		
 		NoticeService service = new NoticeService();
 		int result;
 		
 		switch (cmd) {
 		case "일괄공개":
-			int[] newPubIds = new int[openIds.length];
-			
-			for (int i = 0; i < openIds.length; i++)
-				newPubIds[i] = Integer.parseInt(openIds[i]);
-			
-			result = service.pubNoticeAll(newPubIds);
-			System.out.println(result + "개가 공개 되었습니다.");
+			// openIds와 ids를 비교하며 체크된것과 안된것들을 비교한다.
+			for(int i = 0; i <ids.length; i++) {
+				//CHK1 : 현재 id가 open된 상태냐 (openIds가 ids에 포함되냐를 확인)
+				if (ids[i])
+			}
 			break;
 		
 		case "일괄삭제": 
