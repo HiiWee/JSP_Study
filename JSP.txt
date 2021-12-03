@@ -1214,3 +1214,35 @@ getNoticeNewestList()
 * 따라서 원하는 함수를 구현하려 했더니 조금 유연하게 처리하고 싶음
 * 오버로드를 이용해서 여러 상황에 맞는 매개인자를 전달할 수 있게함 : StringCSV(문자열이지만 컴마로 나뉨), List<String>, int[] 등등 >> 오버로드의 매력이다~!
 	> CSV타입이 제일쉬우므로 대표격 함수로 이용 나머지는 집중화를 위해 재호출
+
+
+
+
+
+
+<------------------------------------------------------------ 오버로드 서비스 메소드 구현하기 ------------------------------------------------------------>
+* 먼저 pubNoticeAll(int[] oids, int[] cids)
+	// 첫번째는 구분자, 두번째는 가변인자를 계속넣을수있음 > 문자열 하나로 합쳐줌
+	String oidsCSV = String.join(",", "ㅇ", "ㅇ", "ㅇ"); --> "ㅇ,ㅇ,ㅇ"
+	아쉽게도 int는 자동변환이 안됨, 컬렉션으로 넣거나 가변인자가 들어가야함
+	컬렉션으로 변경하려해도 문자열 배열로 변경해야 오류가 나지 않음
+		1. for문 다 돌리기
+		2. 라이브러리
+		3. 스트림 api
+			1번선택!
+	
+	// for문을 돌며 변환작업을 함
+	List<String> oidsList = new ArrayList<>();
+	for (int i = 0; i < oids.length; i++) {
+		oidsList.add(String.valueOf(oids[i]));
+	}
+
+
+* 두번쨰로  pubNoticeAll(List<String> oids, List<String> cids)
+	// 첫번째는 구분자, 두번째는 가변인자를 계속넣을수있음 > 문자열 하나로 합쳐줌
+	String oidsCSV = String.join(",", oids);
+	String cidsCSV = String.join(",", cids);
+		
+	return pubNoticeAll(oidsCSV, cidsCSV);
+
+* 마지막 주인 함수 는 마지막 시간에 만들자!!

@@ -387,12 +387,25 @@ public class NoticeService {
 	// 몇개가 공개 되었는지 반환 정수 배열 매개인자
 	public int pubNoticeAll(int[] oids, int[] cids) {
 		
-		return 0;
+		// for문을 돌며 변환작업을 함
+		List<String> oidsList = new ArrayList<>();
+		for (int i = 0; i < oids.length; i++) {
+			oidsList.add(String.valueOf(oids[i]));
+		}
+		List<String> cidsList = new ArrayList<>();
+		for (int i = 0; i < cids.length; i++) {
+			oidsList.add(String.valueOf(cids[i]));
+		}
+		
+		return pubNoticeAll(oidsList, cidsList);
 	}
 	// 몇개가 공개 되었는지 반환 리스트 타입 매개인자
 	public int pubNoticeAll(List<String> oids, List<String> cids) {
+		// 첫번째는 구분자, 두번째는 가변인자를 계속넣을수있음 > 문자열 하나로 합쳐줌
+		String oidsCSV = String.join(",", oids);
+		String cidsCSV = String.join(",", cids);
 		
-		return 0;
+		return pubNoticeAll(oidsCSV, cidsCSV);
 	}
 	// 몇개가 공개 되었는지 반환 CSV(콤마로 나뉜 값들)	44,55,33,44,22 
 	public int pubNoticeAll(String oidsCSV, String cidsCSV) {
