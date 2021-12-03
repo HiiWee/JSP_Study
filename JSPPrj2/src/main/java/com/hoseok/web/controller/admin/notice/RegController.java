@@ -25,6 +25,10 @@ public class RegController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 일단 jsp 파일을 가서 name값을 얻어와야 함
 		String title = request.getParameter("title");
+		
+		System.out.print("title : ");
+		System.out.println(title);
+		
 		String content = request.getParameter("content");
 		String isOpen = request.getParameter("open");
 		

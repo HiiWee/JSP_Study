@@ -149,7 +149,7 @@
                 </div>
 				
 				<!-- url의 default값은 reg라는 값을 갖고 페이지 요청했으므로 reg가 그대로 요청되지만 호환성 위해 -->
-                <form method="post" action="reg">
+                <form method="post" action="reg" enctype="multipart/form-data">
                     <div class="margin-top first">
                         <h3 class="hidden">공지사항 입력</h3>
                         <table class="table">
