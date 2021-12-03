@@ -20,19 +20,28 @@ public class ListController extends HttpServlet{
 		String[] openIds = request.getParameterValues("open-id");
 		String[] delIds = request.getParameterValues("del-id");
 		String cmd = request.getParameter("cmd");
+		NoticeService service = new NoticeService();
+		int result;
 		
 		switch (cmd) {
 		case "일괄공개":
-			for (String openId : openIds)
-				System.out.printf("openId : %s\n", openId);
+			int[] newPubIds = new int[openIds.length];
+			
+			for (int i = 0; i < openIds.length; i++)
+				newPubIds[i] = Integer.parseInt(openIds[i]);
+			
+			result = service.pubNoticeAll(newPubIds);
+			System.out.println(result + "개가 공개 되었습니다.");
 			break;
 		
 		case "일괄삭제": 
-			NoticeService service = new NoticeService();
-			int[] ids = new int[delIds.length];
+			int[] newDelIds = new int[delIds.length];
+			
 			for (int i = 0; i < delIds.length; i++)
-				ids[i] = Integer.parseInt(delIds[i]);
-			int result = service.removeNoticeAll(ids);
+				newDelIds[i] = Integer.parseInt(delIds[i]);
+			
+			result = service.removeNoticeAll(newDelIds);
+			System.out.println(result + "개가 삭제 됐습니다.");
 			break;
 		}
 		// 클라이언트가 아닌 서버쪽에서 서버를 요청하듯이 이용

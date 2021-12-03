@@ -327,14 +327,14 @@ public class NoticeService {
 		
 		// params 변수에 id를 담음
 		for (int i = 0; i < ids.length; i++) {
-			params += ids;
+			params += ids[i];
 			// ( 1, 2, 3, ) < 이렇게 들어가면 SQL문법오류 이므로 조건처리 
-			if (i + 1 < ids.length)
+			if (i < ids.length - 1)
 				params += ",";
 		}
-		
+		System.out.println(params);
  		String url = "jdbc:mysql://127.0.0.1:3306/hoseok";
-		String sql = "delete * from noticec where id in (" + params + ")";
+		String sql = "delete from notice where id in (" + params + ")";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
