@@ -1,6 +1,8 @@
 package com.hoseok.web.controller.admin.notice;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,7 +24,7 @@ public class ListController extends HttpServlet{
 		String cmd = request.getParameter("cmd");
 		// 공개목록위한 id값 받아오고 배열로 파싱
 		String ids_ = request.getParameter("ids");
-		String[] ids = ids_.split(" ");		// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		String[] ids = ids_.trim().split(" ");		// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 		
 		NoticeService service = new NoticeService();
 		int result;
@@ -30,10 +32,14 @@ public class ListController extends HttpServlet{
 		switch (cmd) {
 		case "일괄공개":
 			// openIds와 ids를 비교하며 체크된것과 안된것들을 비교한다.
-			for(int i = 0; i <ids.length; i++) {
-				//CHK1 : 현재 id가 open된 상태냐 (openIds가 ids에 포함되냐를 확인)
-				if (ids[i])
-			}
+			// 배열을 리스트 형태로 바꿀때 이용한다, openIds, ids 둘다 리스트형태로 만들고 빼기연산
+			List<String> oids = Arrays.asList(openIds);
+			// ids를 리스트로만들고 oids를 지워라 하지만 정적길이 리스트 모양이므로 새로운 객체에 담아 쓴다.
+			List<String> cids = new ArrayList<>(Arrays.asList(ids));
+			cids.removeAll(oids);
+			System.out.println(Arrays.asList(ids));
+			System.out.println(oids);
+			System.out.println(cids);
 			break;
 		
 		case "일괄삭제": 

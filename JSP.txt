@@ -1186,3 +1186,18 @@ getNoticeNewestList()
 	> 포함관계 파악을 위해 openIds를 List<String>타입으로 변경 --> List<String> oids = Arrays.asList(openIds);
 	> 이후 if (oids.contains(ids[i]))로 조건을 검사 이는 oids의 리스트 객체가 ids[i]값에 포함됐냐를 의미함 참이면 true 그렇지않으면 false 반환
 	> close, open할 목록을 따로 모아놓고 for문이 끝나고 service.pubNoticeList(opnIds); service.closeNoticeList(clsIds); 실행
+
+
+
+
+
+<------------------------------------------------------------ 공지사항 일괄공개하기 : 비공개 id 목록 얻기!! ------------------------------------------------------------>
+* Close open 목록 얻기
+	> 전체 id 값(ids)에서 공개해야할 값 (openIds)를 뺀다 그러면 양쪽 다 이용가능
+
+* 일단 ids도 리스트 객체로 만들고 리스트 기능중 빼기 기능 사용하자 -> 그럼 굳이 반복문 이용하지 않아도 된다, oids.contains()함수도 이용하지 않아도 된다.
+* 하지만 정적인 상태에서 빼기는 불가능하다 동적인 객체를 만들어서 빼기연산 수행
+	> List<String> oids = Arrays.asList(openIds);
+	  // ids를 리스트로만들고 oids를 지워라 하지만 정적길이 리스트 모양이므로 새로운 객체에 담아 쓴다.
+	  List<String> cids = new ArrayList<>(Arrays.asList(ids));
+	  cids.removeAll(oids);
