@@ -1258,4 +1258,5 @@ getNoticeNewestList()
 	> setString으로 문자열을 꽂아넣으면  where id in ('23, 45, 34'); 이렇게 꽂혀버림 --> 당연히 오류나쥬
 	> 그렇다면 어떻게 해야할까? 문자열 더하기 이용
 	> 연결은 한번만 실행해도 되고, 문장은 두개 필요 (Statement, result도 두개!) 결과값은 result하나에 누적하는 방식으로
-	> sql문장은 문자열 더하기를 해도 되지만
+	> sql문장은 문자열 더하기를 해도 되지만 String.format을 이용하면 printf처럼 꽂아 넣을 수 있다.
+	> 와 끄읕!!
