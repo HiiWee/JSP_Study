@@ -1025,3 +1025,36 @@ getNoticeNewestList()
 	> String realPath = request.getServletContext().getRealPath("/upload");	> 상대경로를 넘겨주면 시스템의 실제 물리경로를 넘겨줌
 	> realPath 출력하면 : C:\JavaJsp\jsp\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\JSPPrj2\upload 이렇게 나옴
 	> 다만 좌측의 개발 패키지구조에 왜 파일이 저장안되냐고 생각할수도있다--> 하지만 톰캣의 임시 실행 서버는 .metadata내에 (서비스 되고있는 어플리케이션 내) 저장됨
+
+
+
+
+
+
+
+
+< ------------------------------------------------------------ 단일 파일 업로드 ------------------------------------------------------------>
+* realPath를 구했으니 실제 파일을 저장해보자 --> inputStream을 통해서 쉽게 얻어서 저장(console inputstream과 동일)
+	>InputStream fis = filePart.getInputStream(); --> 파일을 입력받음
+	> 데이터를 읽을때 여러문자 -> Scanner, 단순한 바이트 단위면 -> read()면 충분(1바이트값 얻음) 다만 반환을 정수형을 반환함 왜? read()하다 읽을게 없으면 다 읽었다고 -1 반환
+	> 데이터만 쓰고 싶으면 데이터를 바이트로 형변환해도됨
+
+	> 파일명을 또 어떻게 받아와야 하나? String fileName = filePart.getSubmittedFileName();으로 받아옴
+	> filePath = realPath + 파일명인데 그 사이 폴더를 나타내는 슬래쉬가 필요 (단 리눅스는 그냥 / 윈도우즈는 \이므로 문자열을 가져다 붙이면 안됨)
+	> File.separator -> 현재 시스템이 가지고 있는 경로 구분방법을 문자로 지정해줌
+	> 저장할때는 스트림이 또 필요함 > FileOutputStream fos = new FileOutputStream(filePath);
+
+	> int b;
+	while ((b = fis.read())!= -1) {
+		fos.write(b);
+	}
+
+	> 1 byte씩 이라 너무 느림 따라서 바이트값, 버퍼값을 지정 -> byte [] buf = new byte[1024];
+	
+	byte[] buf = new byte[1024];
+	int size = 0;
+	// 읽다가 사이즈값 반환 다 읽으면 -1
+	while ((size = fis.read(buf))!= -1) {
+		fos.write(buf);
+	}
+	> 하지만 마지막에 불러올때 기존 buf에 있던값이 겹치므로 offset과 length를 지정	>> fos.write(buf, 0, size); >> 0번쨰부터 읽어온 size까지
