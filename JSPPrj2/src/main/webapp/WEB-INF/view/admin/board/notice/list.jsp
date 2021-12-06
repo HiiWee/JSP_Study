@@ -228,7 +228,7 @@
 						<c:set var="ids" value="${ids} ${notice.id}"/>
 					</c:forEach>
 					<!-- 같이 전달 될 수 있는 ID 숨겨놓음 -->
-						<input type="text" name="ids" value="${ids}"/>
+						<input type="hidden" name="ids" value="${ids}"/>
 						<input type="submit" class="btn-text btn-default" name="cmd" value="일괄공개">
 						<input type="submit" class="btn-text btn-default" name="cmd" value="일괄삭제">
 						<a class="btn-text btn-default" href="reg">글쓰기</a>				

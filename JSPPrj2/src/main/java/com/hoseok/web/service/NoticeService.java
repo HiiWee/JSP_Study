@@ -412,6 +412,8 @@ public class NoticeService {
 	// 몇개가 공개 되었는지 반환 CSV(콤마로 나뉜 값들)	44,55,33,44,22 
 	public int pubNoticeAll(String oidsCSV, String cidsCSV) {
 		int result = 0;
+		
+		System.out.println(oidsCSV + cidsCSV);
 		String sqlOpen = String.format("update notice set pub=1 where id in (%s)", oidsCSV);
 		String sqlClose = String.format("update notice set pub=0 where id in (%s)", cidsCSV);
 
