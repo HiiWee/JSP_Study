@@ -52,7 +52,6 @@ public class MemberService {
 	
 	// 로그인 메소드
 	public int logInMember(String memberId, String pwd) {
-		int result = 0;
 		
 		String url = "jdbc:mysql://127.0.0.1:3306/theater_db";
 		String sql = "select pwd from member where memberId = ?";
