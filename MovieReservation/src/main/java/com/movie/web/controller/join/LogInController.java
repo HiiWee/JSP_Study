@@ -38,21 +38,21 @@ public class LogInController extends HttpServlet{
 		
 		MemberService service = new MemberService();
 		int result = service.logInMember(memberId, pwd);
+		HttpSession session = request.getSession();
 		
 		if (result == 1) {
 			System.out.println("로그인 성공");
-			HttpSession session = request.getSession();
 			session.setAttribute("sessionId", memberId);
 			response.sendRedirect("/member/index");
 		}
 		else if (result == -1) {
 			System.out.println("존재하지 않는 아이디 입니다.");
-			request.setAttribute("idChk", result);
+			session.setAttribute("logInChk", result);
 			response.sendRedirect("login");
 		}
 		else if (result == 0) {
 			System.out.println("비밀번호가 틀렸습니다.");
-			request.setAttribute("idChk", result);
+			session.setAttribute("logInChk", result);
 			response.sendRedirect("login");
 		}
 	}
