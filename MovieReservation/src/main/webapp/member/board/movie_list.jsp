@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="description" content="dbproject">
     <meta name="keywords" content="HTML5, CSS, JavaScript">
-    <script src="common.js"></script>
+    <script src="/scripts/common.js"></script>
     <style type="text/css">
         /* 공통 : 홈 로고영역 */
         .header {
