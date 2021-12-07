@@ -25,7 +25,6 @@ public class ReservLookUpController extends HttpServlet {
 		PaymentService service = new PaymentService();
 		List<PaymentView> list = service.getUserPayListAll(memberId);
 		boolean listEmpty = list.isEmpty();
-		System.out.println(listEmpty);
 		request.setAttribute("list", list);
 		request.setAttribute("listEmpty", listEmpty);
 		request.getRequestDispatcher("look_up.jsp").forward(request, response);
