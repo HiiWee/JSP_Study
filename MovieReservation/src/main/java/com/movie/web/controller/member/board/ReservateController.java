@@ -22,7 +22,14 @@ public class ReservateController extends HttpServlet {
 		String[] seatName_ = request.getParameterValues("seat");
 		int manCount = Integer.parseInt(request.getParameter("manCount"));
 		
+		
+		
 		// 인원수 체크
+		if (seatName_ == null) {
+			System.out.println("선택한 좌석과 인원수가 맞지 않습니다.");
+			response.sendRedirect("movie_list");
+			return;
+		}
 		if (manCount != seatName_.length) {
 			System.out.println("선택한 좌석과 인원수가 맞지 않습니다.");
 			response.sendRedirect("movie_list");
