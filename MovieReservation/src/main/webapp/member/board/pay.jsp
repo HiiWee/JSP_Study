@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <meta name="description" content="dbproject">
     <meta name="keywords" content="HTML5, CSS, JavaScript">
-    <script src="../JavaScript/common.js"></script>
+    <script src="/scripts/common.js"></script>
     <script>
         var swp = 0;
     </script>
