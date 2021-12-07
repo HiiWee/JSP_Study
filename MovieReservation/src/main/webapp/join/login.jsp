@@ -179,7 +179,7 @@
             <input type="text" placeholder="아이디" name="memberId" required style="height:30px; width: 380px" /><br />
             <input type="password" placeholder="비밀번호" name="pwd" required style="height:30px; width: 380px" /><br />
             <input type="submit" value="로그인" class="login" />
-            <button onclick="location.href='/index.jsp';" class="login">HOME</button>
+            <button onclick="location.href='/index';" class="login">HOME</button>
         </form>
         <!-- -------------JSP FORM------------------- -->
 
@@ -187,12 +187,12 @@
         <p><a href="join_in"><input type="button" value="회원가입" id="signup" /></a></p>
     </div>
 
-    <c:if test="${idChk == -1}">
+    <c:if test="${logInChk == -1}">
         <script>
             alert("존재하지 않는 아이디 입니다.");
         </script>
     </c:if>
-    <c:if test="${idChk == 0}">
+    <c:if test="${logInChk == 0}">
         <script>
             alert("비밀번호가 틀렸습니다.");
         </script>
