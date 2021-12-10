@@ -105,6 +105,7 @@
     <header class="header">
         <div style="text-align: right;">
             <span>${sessionId}님 반갑습니다. </span> <a href="/join/logout">[로그아웃]</a>
+            <a href="edit_member">[회원정보수정]</a>
         </div>
         <nav class="navigation">
             <a href="#" onclick="location.href='/member/index'"><img class="homelogo" src="/images/homelogo2.png"></a>
