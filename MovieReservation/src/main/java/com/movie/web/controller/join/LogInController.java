@@ -47,13 +47,13 @@ public class LogInController extends HttpServlet{
 		}
 		else if (result == -1) {
 			System.out.println("존재하지 않는 아이디 입니다.");
-			session.setAttribute("logInChk", result);
-			response.sendRedirect("login");
+			request.setAttribute("logInChk", result);
+			request.getRequestDispatcher("/join/login.jsp").forward(request, response);
 		}
 		else if (result == 0) {
 			System.out.println("비밀번호가 틀렸습니다.");
-			session.setAttribute("logInChk", result);
-			response.sendRedirect("login");
+			request.setAttribute("logInChk", result);
+			request.getRequestDispatcher("/join/login.jsp").forward(request, response);
 		}
 	}
 }

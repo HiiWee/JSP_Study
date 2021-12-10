@@ -187,14 +187,16 @@
         <p><a href="join_in"><input type="button" value="회원가입" id="signup" /></a></p>
     </div>
 
-    <c:if test="${logInChk == -1}">
+    <c:if test="${requestScope.logInChk == -1}">
         <script>
             alert("존재하지 않는 아이디 입니다.");
+            location.href("/join/login");
         </script>
     </c:if>
-    <c:if test="${logInChk == 0}">
+    <c:if test="${requestScope.logInChk == 0}">
         <script>
             alert("비밀번호가 틀렸습니다.");
+            location.href("/join/login");
         </script>
     </c:if>
 </body>
