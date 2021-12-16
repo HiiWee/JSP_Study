@@ -7,6 +7,7 @@
 ## E-R Diagram
 
 ## MySQL Tables
+![image](https://user-images.githubusercontent.com/66772624/146421541-b555adc2-e4df-47ff-a91b-cba9e9cc5fda.png)
 
 ## 기능
 
