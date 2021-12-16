@@ -5,6 +5,7 @@
 프로젝트는 고객이 사용하는 부분만을 완성했으며 관리자 기능 구현은 구현하지 않았습니다.(추후 추가해보겠습니다) 처음으로 JSP프로젝트를 진행해본만큼 부족한점이 많습니다. 다만  0 to 100까지 직접 만들었다는 것에 의의를 두고 있습니다.
 
 ## E-R Diagram
+![image](https://user-images.githubusercontent.com/66772624/146421684-9f2eef7f-e9e3-4298-b23c-1243f723f380.png)
 
 ## MySQL Tables
 ![image](https://user-images.githubusercontent.com/66772624/146421541-b555adc2-e4df-47ff-a91b-cba9e9cc5fda.png)
